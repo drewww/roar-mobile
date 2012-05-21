@@ -30,7 +30,14 @@ model.Chat = model.SectionEvent.extend({
         var defaults = model.SectionEvent.prototype.defaults.call(this);
         
         defaults["message"] = "default chat message";
+        
+        defaults["votes"] = 0;
+        
         return defaults;
+    },
+    
+    addVote: function() {
+        this.set({"votes":this.get("votes")+1});
     }
 });
 

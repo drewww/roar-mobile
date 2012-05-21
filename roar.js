@@ -136,6 +136,17 @@ io.sockets.on('connection', function(socket) {
         });
     });
     
+    socket.on("vote", function(data) {
+        socket.get("identity", function(err, userName) {
+            var sectionEvent = sectionEvents.get(data["id"]);
+            
+            sectionEvent.addVote();
+            
+            io.sockets.emit("vote", {id:data["id"]});
+            logger.info("voting on " + data["id"] + " now " + sectionEvent.get("votes"));
+        });
+    });
+    
     
     socket.on("disconnect", function(data) {
         socket.get("identity", function(err, userName) {

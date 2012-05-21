@@ -66,7 +66,16 @@ client.ConnectionManager.prototype = {
                 console.log("POLL: " + JSON.stringify(newPoll));
                 
                 break;
-            
+                
+            case "vote":
+                var sectionEvent = this.sectionEvents.get(data["id"]);
+                
+                if(!_.isUndefined(sectionEvent)) {
+                    sectionEvent.addVote();
+                }
+                
+                console.log("VOTE: " + JSON.stringify(data));
+                break;
             case "identity-ok":
                 console.log("identity okay!");
                 this.user = arg["name"];
@@ -82,6 +91,10 @@ client.ConnectionManager.prototype = {
     
     identify: function(name) {
         this.socket.emit("identify", {"name":name});
+    },
+    
+    vote: function(id) {
+        this.socket.emit("vote", {"id": id});
     },
     
     join: function(roomName) {
