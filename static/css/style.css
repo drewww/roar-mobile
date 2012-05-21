@@ -1,3 +1,7 @@
-div#main {
-  
+div#section {
+  background-color: red;
+}
+
+div#stream {
+  background-color: blue;
 }
