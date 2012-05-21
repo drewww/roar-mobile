@@ -9,7 +9,7 @@ views.StreamView = Backbone.View.extend({
 });
 
 views.MainView = Backbone.View.extend({
-  id: 'jqt',
+  id: 'main',
   
   initialize: function(conn) {
     views.conn = conn;
@@ -17,7 +17,7 @@ views.MainView = Backbone.View.extend({
     this.stream = new views.StreamView();
   },
   
-  template: _.template("<div id='section' class='current'>section</div><div id='stream' class='current'>stream</div>"),
+  template: _.template("<div id='section'>section</div><div id='stream'>stream</div>"),
   
   render: function() {
     this.$el.html(this.template());

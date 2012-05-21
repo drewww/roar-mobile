@@ -38,20 +38,18 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="/static/css/reset.css">
-  <link rel="stylesheet" href="/static/css/jqtouch.css">
   <link rel="stylesheet" href="/static/css/style.css">
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <script src="/static/libs/modernizr-2.0.6.min.js"></script>
 </head>
 
-<body id="jqt" onload="bootstrap();" class="splitscreen">
+<body id="main" onload="bootstrap();" class="splitscreen">
   
   <script type="text/javascript" charset="utf-8">
     function bootstrap() {
       conn = new client.ConnectionManager({"force-new-connect":false});
-		conn.connect("<%= host %>", <%=port%>);
-
+		  conn.connect("<%= host %>", <%=port%>);
 
       main_view = new views.MainView(conn);
       $("body").append(main_view.render().el);      
@@ -60,7 +58,6 @@
 
 
   <script src="/static/libs/jquery-1.7.2.min.js"></script>
-  <script src="/static/libs/jqtouch.js"></script>
   <script src="/static/libs/underscore-min.js"></script>
   <script src="/static/libs/backbone-min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
