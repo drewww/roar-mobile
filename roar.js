@@ -46,12 +46,66 @@ var app = express.createServer();
 var io = socket_lib.listen(this.app, {"log level":0});
 io.set("log level", 0);
 app.listen(port);
-app.use("/static", express.static(__dirname + '/../static'));
+app.use("/static", express.static(__dirname + '/static'));
 
 // Setup the index page.
 app.get('/', function(req, res) {
     // this is just going to be a static landing page.
     res.render('app.ejs', {layout:false});
 });
+
+app.get('/test', function(req, res) {
+    // this is just going to be a static landing page.
+    res.render('test.ejs', {layout:false});
+});
+
+
+io.sockets.on('connection', function(socket) {
+    logger.debug("Received connection: " + socket);
+    
+    socket.on("identify", function(data) {
+        // for a demo, we're going to just trust people's names.
+        socket.set("identity", data["name"]);
+        socket.emit("identity-ok", {"name":data["name"]});
+    });
+    
+    socket.on("chat", function(data) {
+        socket.get("identity", function(err, userName) {
+            
+        });
+    });
+    
+    socket.on("join", function(data) {
+        socket.get("identity", function(err, userName) {
+            
+            
+            
+            
+        });
+    });
+    
+    socket.on("leave", function(data) {
+        socket.get("identity", function(err, userName) {
+            
+            
+            
+            
+        });
+    });
+    
+    
+    socket.on("disconnect", function(data) {
+        socket.get("identity", function(err, userName) {
+            
+            
+            
+            
+        });
+    });
+});
+
+
+
+
 
 
