@@ -4,7 +4,8 @@ var program = require('commander'),
     socket_lib = require('socket.io'),
     fs = require('fs'),
     _ = require('underscore')._,
-    winston = require('winston');
+    winston = require('winston'),
+    server_model = require('./lib/server-model.js');
 
 logger.cli();
 
@@ -19,6 +20,12 @@ var logger= new (winston.Logger)({
     levels: winston.config.syslog.levels
 });
 
+
+// okay, so how do we handle voting on things? 
+// 1. chat messages
+// 2. (anything in the main stream)
+//
+// a. polls are separate
 
 program.version(0.1)
     .option('-p, --port [num]', "Set the port.")
@@ -59,6 +66,11 @@ app.get('/test', function(req, res) {
 });
 
 
+// setup the state management code
+
+// hash of sectionName -> ServerEventsCollection.
+var sectionEvents = {}
+
 io.sockets.on('connection', function(socket) {
     // console.log("connection: " + socket);
     logger.info("Received connection: " + socket.id);
@@ -73,12 +85,20 @@ io.sockets.on('connection', function(socket) {
     socket.on("chat", function(data) {
         socket.get("identity", function(err, userName) {
             socket.get("room", function(err, roomName) {
-                logger.info("(" + roomName + ") " + userName + ": " + data["message"]);
+                
+                // var newChat = server_model.ServerChat({name:userName, timestamp:new Date().getTime(),
+                // message:data["message"],
+                // avatarUrl:"/static/img/users/default.png"});
+                
+                var newChat = new server_model.ServerChat();
                 
                 io.sockets.in("room:" + roomName).emit("chat",
-                    {"name":userName, "timestamp":new Date().getTime(),
-                    "message":data["message"],
-                    "avatarUrl":"/static/img/users/default.png"});
+                    newChat.toJSON());
+                
+                sectionEvents[roomName].add(newChat);
+                
+                logger.info("(" + roomName + ", " + newChat.id +") " + newChat.get("name") + ": " + newChat.get("message"));                
+                
             });
         });
     });
@@ -96,8 +116,13 @@ io.sockets.on('connection', function(socket) {
             // join the socket to the room.
             socket.join("room:" + data["room"]);
             socket.set("room", data["room"]);
+            logger.info(userName + " joining " + data["room"]);
             
-                logger.info(userName + " joining " + data["room"]);
+            if(_.isUndefined(sectionEvents[data["room"]])) {
+                // 
+                console.log("(" + data["room"] + ") " + "section has never been joined before!")
+                sectionEvents[data["room"]] = new model.SectionEventCollection();
+            }
             
             });
         });

@@ -1,4 +1,17 @@
-model = {};
+(function () {
+  var server = false,
+    model;
+  if (typeof exports !== 'undefined') {
+    model = exports;
+    server = true;
+    
+    _ = require('underscore');
+    Backbone = require('backbone');
+    
+  } else {
+    model = this.model = {};
+  }
+  
 
 model.SectionEvent = Backbone.Model.extend({
     
@@ -24,3 +37,5 @@ model.Chat = model.SectionEvent.extend({
 model.SectionEventCollection = Backbone.Collection.extend({
     "model": model.SectionEvent,
 });
+
+})()
