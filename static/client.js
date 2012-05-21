@@ -9,6 +9,7 @@ client.ConnectionManager.prototype = {
     user: null,
     socket: null,
     sectionEvents: null,
+    sectionName: null,
     
     
     connect: function(host, port) {
@@ -76,6 +77,20 @@ client.ConnectionManager.prototype = {
                 
                 console.log("VOTE: " + JSON.stringify(data));
                 break;
+            case "poll-vote":
+                var sectionEvent = this.sectionEvents.get(data["id"]);
+                
+                if(!_.isUndefined(sectionEvent)) {
+                    sectionEvent.addVote(data);
+                }
+                
+                console.log("POLLVOTE: " + JSON.stringify(data));
+                
+                break;
+            case "join-ok":
+                console.log("JOIN OKAY! " + data["room"]);
+                this.sectionName = data["room"];
+                break;
             case "identity-ok":
                 console.log("identity okay!");
                 this.user = arg["name"];
@@ -95,6 +110,10 @@ client.ConnectionManager.prototype = {
     
     vote: function(id) {
         this.socket.emit("vote", {"id": id});
+    },
+    
+    pollVote: function(pollId, index) {
+        this.socket.emit("poll-vote", {"pollId":pollId, "index":index});
     },
     
     join: function(roomName) {
