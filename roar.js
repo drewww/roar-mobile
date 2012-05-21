@@ -10,8 +10,7 @@ logger.cli();
 
 var logger= new (winston.Logger)({
     transports: [
-    new (winston.transports.File)({
-        filename:'server.log',
+    new (winston.transports.Console)({
         timestamp:true,
         json:false,
         level: "debug"
@@ -61,12 +60,14 @@ app.get('/test', function(req, res) {
 
 
 io.sockets.on('connection', function(socket) {
-    logger.debug("Received connection: " + socket);
+    // console.log("connection: " + socket);
+    logger.info("Received connection: " + socket.id);
     
     socket.on("identify", function(data) {
         // for a demo, we're going to just trust people's names.
         socket.set("identity", data["name"]);
         socket.emit("identity-ok", {"name":data["name"]});
+        logger.info("identifying socket: " + data["name"]);
     });
     
     socket.on("chat", function(data) {

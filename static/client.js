@@ -52,10 +52,10 @@ client.ConnectionManager.prototype = {
     
     
     chat: function(msg) {
-        socket.emit("chat", {"message": msg});
+        this.socket.emit("chat", {"message": msg});
     },
     
     identify: function(name) {
-        socket.emit("identify", {"name":name});
+        this.socket.emit("identify", {"name":name});
     },
 }

@@ -19,7 +19,7 @@
 	var conn;
 	
 	$(document).ready(function() {
-		conn = new client.ConnectionManager({"force-new-connect":false});
+		conn = new client.ConnectionManager();
 		conn.connect("localhost", 8080);
 	});
 	
