@@ -8,8 +8,9 @@ client.ConnectionManager.prototype = {
     
     user: null,
     socket: null,
-    sectionEvents: null,
+    sectionEvents: new model.SectionEventCollection(),
     sectionName: null,
+    rows: new pulse.RowCollection(),
     
     
     connect: function(host, port) {
@@ -33,9 +34,8 @@ client.ConnectionManager.prototype = {
         this.registerSocketListener("poll");
         this.registerSocketListener("join-ok");
         this.registerSocketListener("leave-ok");
-        
-        
-        this.sectionEvents = new model.SectionEventCollection();
+
+        this.registerSocketListener("pulse");
     },
     
     registerSocketListener: function(type) {
@@ -91,6 +91,35 @@ client.ConnectionManager.prototype = {
                 console.log("JOIN OKAY! " + data["room"]);
                 this.sectionName = data["room"];
                 break;
+            
+            case "pulse":
+                console.log("PULSE");
+                
+                // so the structure for a pulse message is:
+                // some set of N items with a type and a payload.
+                var row = new pulse.Row();
+                
+                for(var i in data["items"]) {
+                    var item = data["items"][i];
+                    
+                    switch(item.type) {
+                        case "chat":
+                            row.push(new model.Chat(item));
+                            break;
+                        case "sign":
+                            row.push(new model.Sign(item));
+                            break;
+                        case "word":
+                            row.push(new model.Word(item));
+                            break;
+                    }
+                    
+                }
+                
+                this.rows.push(row);
+                
+                break;
+                
             case "identity-ok":
                 console.log("identity okay!");
                 this.user = arg["name"];

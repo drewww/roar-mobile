@@ -1,0 +1,29 @@
+
+
+.row {
+    height: 75px;
+    background-color: red;
+    margin: 5px;
+}
+
+#pulse {
+    overflow-y: auto;
+}
+
+#pulse .sign {
+    margin-left: 5px;
+    margin-right: 5px;
+    
+    border: 1px solid #666;
+    
+    height: 65px;
+    width: 65px;
+}
+
+#pulse .chat {
+    width: 150px;
+}
+
+#pulse .word {
+    width: 75px;
+}
