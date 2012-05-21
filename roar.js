@@ -168,6 +168,16 @@ io.sockets.on('connection', function(socket) {
     });
 });
 
+// periodically publish pulse data.
+function generatePulse() {
+    
+    // auto cycle
+    setTimeout(generatePulse, 10000);
+
+    console.log("PULSING");
+    // io.sockets.emit("pulse", {items:});
+    
+}
 
 function publishPoll() {
     
