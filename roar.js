@@ -77,7 +77,8 @@ io.sockets.on('connection', function(socket) {
                 
                 io.sockets.in("room:" + roomName).emit("chat",
                     {"name":userName, "timestamp":new Date().getTime(),
-                    "message":data["message"]});
+                    "message":data["message"],
+                    "avatarUrl":"/static/img/users/default.png"});
             });
         });
     });
