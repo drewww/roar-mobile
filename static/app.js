@@ -5,8 +5,7 @@ views.SectionView = Backbone.View.extend({
   
   template: _.template("<div id='status'><h1></h1><h2>2 people</h2></div> \
   <div id='section-select'> \
-    <label for='search'>Section select</label> \
-    <input id='search' type='text' placeholder='Section name'> \
+     
   </div><div style='display:none;' id='events-list'></div><form style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
   
   events: {
