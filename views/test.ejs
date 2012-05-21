@@ -22,7 +22,7 @@
 	
 	$(document).ready(function() {
 		conn = new client.ConnectionManager();
-		conn.connect("localhost", 8080);
+		conn.connect("<%= host %>", <%=port%>);
 	});
 	
 	
