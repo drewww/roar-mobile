@@ -33,24 +33,13 @@ views.ChatView = Backbone.View.extend({
   }
 });
 
-views.StreamView = Backbone.View.extend({
-  id: 'stream',
-  
-  template: _.template("stuff"),
-  
-  render: function() {
-    this.$el.html(this.template());
-    return this;
-  }
-});
-
 views.MainView = Backbone.View.extend({
   id: 'main',
   
   initialize: function(conn) {
     views.conn = conn;
     this.section = new views.SectionView();
-    this.stream = new views.StreamView();
+    this.pulse = new pulse.PulseView();
   },
   
   template: _.template(""),
@@ -58,7 +47,7 @@ views.MainView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template());
     this.$el.append(this.section.render().el);
-    this.$el.append(this.stream.render().el)
+    this.$el.append(this.pulse.render().el)
     
     return this;
   }
