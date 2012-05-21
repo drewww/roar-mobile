@@ -8,6 +8,8 @@ client.ConnectionManager.prototype = {
     
     user: null,
     socket: null,
+    sectionEvents: null,
+    
     
     connect: function(host, port) {
         this.socket = io.connect("http://" + host + ":" + port, {'force new connection': true,
@@ -30,6 +32,9 @@ client.ConnectionManager.prototype = {
         this.registerSocketListener("poll");
         this.registerSocketListener("join-ok");
         this.registerSocketListener("leave-ok");
+        
+        
+        this.sectionEvents = new model.SectionEventCollection();
     },
     
     registerSocketListener: function(type) {
@@ -47,6 +52,14 @@ client.ConnectionManager.prototype = {
         
         switch(type) {
             case "chat":
+                var newChat = new model.Chat({"message":data["message"],
+                 "timestamp":data["timestamp"], "name":data["name"],
+                 "avatarUrl":data["avatarUrl"]});
+                
+                this.sectionEvents.add(newChat);
+                
+                console.log("CHAT: " + JSON.stringify(newChat));
+                break;
             case "chat-ok":
                 break;
             
@@ -58,8 +71,6 @@ client.ConnectionManager.prototype = {
         
         this.trigger("message." + type, arg);
     },
-    
-    
     
     chat: function(msg) {
         this.socket.emit("chat", {"message": msg});

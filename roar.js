@@ -50,12 +50,12 @@ app.use("/static", express.static(__dirname + '/static'));
 // Setup the index page.
 app.get('/', function(req, res) {
     // this is just going to be a static landing page.
-    res.render('app.ejs', {layout:false});
+    res.render('app.ejs', {layout:false, locals:{"host":host, "port":port}});
 });
 
 app.get('/test', function(req, res) {
     // this is just going to be a static landing page.
-    res.render('test.ejs', {layout:false});
+    res.render('test.ejs', {layout:false, locals:{"host":host, "port":port}});
 });
 
 
@@ -77,7 +77,8 @@ io.sockets.on('connection', function(socket) {
                 
                 io.sockets.in("room:" + roomName).emit("chat",
                     {"name":userName, "timestamp":new Date().getTime(),
-                    "message":data["message"]});
+                    "message":data["message"],
+                    "avatarUrl":"/static/img/users/default.png"});
             });
         });
     });
@@ -86,20 +87,17 @@ io.sockets.on('connection', function(socket) {
         socket.get("identity", function(err, userName) {
             socket.get("room", function(err, currentRoom) {
             
-            
             if(!_.isNull(currentRoom) && !_.isUndefined(currentRoom)) {
                 // if it's valid, then leave it.
                 socket.leave("room:" + currentRoom);
                 logger.info(userName + " leaving " + currentRoom);
-                
             }
             
-                        
             // join the socket to the room.
             socket.join("room:" + data["room"]);
             socket.set("room", data["room"]);
             
-            logger.info(userName + " joining " + data["room"]);
+                logger.info(userName + " joining " + data["room"]);
             
             });
         });
