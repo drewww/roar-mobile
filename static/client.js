@@ -52,9 +52,7 @@ client.ConnectionManager.prototype = {
         
         switch(type) {
             case "chat":
-                var newChat = new model.Chat({"message":data["message"],
-                 "timestamp":data["timestamp"], "name":data["name"],
-                 "avatarUrl":data["avatarUrl"]});
+                var newChat = new model.Chat(data);
                 
                 this.sectionEvents.add(newChat);
                 

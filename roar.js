@@ -86,11 +86,11 @@ io.sockets.on('connection', function(socket) {
         socket.get("identity", function(err, userName) {
             socket.get("room", function(err, roomName) {
                 
-                // var newChat = server_model.ServerChat({name:userName, timestamp:new Date().getTime(),
-                // message:data["message"],
-                // avatarUrl:"/static/img/users/default.png"});
+                var newChat = new server_model.ServerChat({name:userName, timestamp:new Date().getTime(),
+                message:data["message"],
+                avatarUrl:"/static/img/users/default.png"});
                 
-                var newChat = new server_model.ServerChat();
+                // var newChat = new server_model.ServerChat();
                 
                 io.sockets.in("room:" + roomName).emit("chat",
                     newChat.toJSON());
