@@ -9,8 +9,8 @@ pulse.PulseView = Backbone.View.extend({
     initialize: function(args) {
         Backbone.Model.prototype.initialize.call(this, args);
         
-        this.collection.on("add", function(){
-            console.log("SOMETHING ADDED TO ROWS");
+        this.collection.on("add", function(newRow){
+            this.$el.append(new pulse.RowView({model:newRow}).render().el);
         }, this);
     },
     
@@ -29,14 +29,14 @@ pulse.RowView = Backbone.View.extend({
         
         // loop through the different models
         
-        this.collection.each(function(model) {
+        _.each(this.model.get("items"), function(item) {
             
-            if(model instanceof Sign) {
-                this.$el.append(new SignView(model).el);
-            } else if(model instanceof TrendingWord) {
-                this.$el.append(new TrendingWordView(model).el);
-            } else if(model instanceof Chat) {
-                this.$el.append(new TrendingChatView(model).el);
+            if(item instanceof pulse.Sign) {
+                this.$el.append(new pulse.SignView(item).el);
+            } else if(item instanceof pulse.Word) {
+                this.$el.append(new pulse.TrendingWordView(item).el);
+            } else if(item instanceof model.Chat) {
+                this.$el.append(new pulse.TrendingChatView(item).el);
             }
         }, this);
         
