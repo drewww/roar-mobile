@@ -8,9 +8,9 @@ client.ConnectionManager.prototype = {
     
     user: null,
     socket: null,
-    sectionEvents: null,
+    sectionEvents: new model.SectionEventCollection(),
     sectionName: null,
-    rows: null,
+    rows: new pulse.RowCollection(),
     
     
     connect: function(host, port) {
@@ -36,11 +36,6 @@ client.ConnectionManager.prototype = {
         this.registerSocketListener("leave-ok");
 
         this.registerSocketListener("pulse");
-        
-        
-        
-        this.sectionEvents = new model.SectionEventCollection();
-        this.rows = new pulse.RowCollection();
     },
     
     registerSocketListener: function(type) {

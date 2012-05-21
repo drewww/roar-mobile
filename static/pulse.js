@@ -1,10 +1,10 @@
 
-pulse = {}
+pulse = {};
 
 pulse.PulseView = Backbone.View.extend({
     id: 'pulse',
     
-    template: _.template("");
+    template: _.template(""),
     
     initialize: function(args) {
         Backbone.Model.prototype.initialize.call(this, args);
@@ -12,7 +12,7 @@ pulse.PulseView = Backbone.View.extend({
         this.collection.on("add", function(){
             console.log("SOMETHING ADDED TO ROWS");
         }, this);
-    }
+    },
     
     render: function() {
         this.$el.html(this.template());
@@ -23,7 +23,7 @@ pulse.PulseView = Backbone.View.extend({
 pulse.RowView = Backbone.View.extend({
     className: "row",
     
-    template: _.template("");
+    template: _.template(""),
 
     render: function() {
         
@@ -48,7 +48,7 @@ pulse.RowView = Backbone.View.extend({
 pulse.SignView = Backbone.View.extend({
    className: "sign",
    
-   template: _.template("<img src='<%=url%>'>");
+   template: _.template("<img src='<%=url%>'>"),
    
    render: function() {
        this.$el.html(this.template());
@@ -59,7 +59,7 @@ pulse.SignView = Backbone.View.extend({
 pulse.TrendingWordView = Backbone.View.extend({
    className: "word",
    
-   template: _.template("<%=word%>");
+   template: _.template("<%=word%>"),
    
    render: function() {
        this.$el.html(this.template());
@@ -70,7 +70,7 @@ pulse.TrendingWordView = Backbone.View.extend({
 pulse.TrendingChatView = Backbone.View.extend({
     className: "chat",
 
-    template: _.template("<img src='<%=avatarUrl%>'><div class='message'><%=message%></div>");
+    template: _.template("<img src='<%=avatarUrl%>'><div class='message'><%=message%></div>"),
 
     render: function() {
         this.$el.html(this.template());
