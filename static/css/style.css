@@ -1,7 +1,77 @@
+/***** Section (Left Side) Styles *****/
+
 div#section {
-  background-color: red;
+  background-color: rgba(242,250,178,0.5);
+  position: absolute;
+  left: 0px;
+  width: 50%;
+  height: 100%;
+}
+
+div#status {
+  background-color: rgba(242,250,178,1.0);
+  height: 5%;
+}
+
+div#events-list {  
+  padding: 10px;
+  height: 80%;
+  
+  box-shadow: -1px 5px 20px -5px #666;
+  -webkit-box-shadow: -1px 5px 20px -5px #666;
+}
+
+div#events-list .event {
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  
+  padding: 5px;
+  margin-bottom: 10px;
+  
+  background-color: rgba(242,250,178,0.8);
+  border: 1px solid #666;
+  
+  min-height: 90px;
+}
+
+div#events-list .event .profile {
+  float: left;
+  width: 25%;
+  padding-right: 10px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+div#events-list .event .text {
+  margin-top: 0px
+}
+
+
+div#section input {
+  position: absolute;
+  left: 0px;
+  bottom: 5px;
+  width: 100%;
+  
+  background: none;
+  border: none;
+  padding: 0px;
+  padding-bottom: 3px;
+  -webkit-appearance: none;
+  border-bottom: 2px solid #000;
+  font-size: 24px;
+  border-radius: 0px;
+  -webkit-border:radius: 0px;
+}
+
+div#section form input::-webkit-input-placeholder {
+  color: #666;
 }
 
 div#stream {
-  background-color: blue;
+  background-color: rgba(203,242,188,0.5);
+  position: absolute;
+  right: 0px;
+  width: 50%;
+  height: 100%;
 }
