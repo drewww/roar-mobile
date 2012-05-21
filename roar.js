@@ -72,6 +72,7 @@ io.sockets.on('connection', function(socket) {
     
     socket.on("chat", function(data) {
         socket.get("identity", function(err, userName) {
+            console.log(userName + ": " + data["message"]);
             
         });
     });
