@@ -13,15 +13,42 @@ div#status {
   height: 5%;
 }
 
+div#status h1 {
+  float: left;
+  margin: 0px;
+  margin-top: -2px;
+  margin-left: 5px;
+}
+
+div#status h2 {
+  float: left;
+  margin: 5px;
+  color: red;
+  font-size: 16px;
+}
+
+div#section-select {
+  margin-top: 10px;
+  height: 80%;
+}
+
+div#section-select input#search {
+  width: 100%;
+  padding: 0px;
+  font-size: 20px;  
+}
+
 div#events-list {  
   padding: 10px;
   height: 80%;
+  overflow-y: auto;
   
   box-shadow: -1px 5px 20px -5px #666;
   -webkit-box-shadow: -1px 5px 20px -5px #666;
 }
 
-div#events-list .event {
+div#events-list .chat-event {
+  display: none;
   border-radius: 3px;
   -webkit-border-radius: 3px;
   
@@ -34,7 +61,7 @@ div#events-list .event {
   min-height: 90px;
 }
 
-div#events-list .event .profile {
+div#events-list .chat-event .profile {
   float: left;
   width: 25%;
   padding-right: 10px;
@@ -42,26 +69,24 @@ div#events-list .event .profile {
   -webkit-border-radius: 5px;
 }
 
-div#events-list .event .text {
+div#events-list .chat-event .text {
   margin-top: 0px
 }
 
 
-div#section input {
+div#section input#msg {
   position: absolute;
   left: 0px;
-  bottom: 5px;
+  bottom: 0px;
   width: 100%;
   
-  background: none;
-  border: none;
   padding: 0px;
-  padding-bottom: 3px;
-  -webkit-appearance: none;
-  border-bottom: 2px solid #000;
+ 
   font-size: 24px;
-  border-radius: 0px;
-  -webkit-border:radius: 0px;
+}
+
+div#section input:focus {
+  outline: none;
 }
 
 div#section form input::-webkit-input-placeholder {
