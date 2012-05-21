@@ -5,12 +5,9 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/static/client.js"></script>
 	
-	<script src="/static/lib/jquery-1.7.1.min.js" type="text/javascript"></script>
-	<script src="/static/lib/underscore-min.js" type="text/javascript"></script>
-	<script src="/static/lib/backbone-min.js" type="text/javascript"></script>
-	<script src="/static/lib/jquery.timeago.js" type="text/javascript"></script>
-	<script src="/static/lib/jquery-ui-1.8.17.custom.min.js" type="text/javascript"></script>
-	
+	<script src="/static/libs/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<script src="/static/libs/underscore-min.js" type="text/javascript"></script>
+	<script src="/static/libs/backbone-min.js" type="text/javascript"></script>	
 	
 	<script type="text/javascript" charset="utf-8">
 	if (typeof console === "undefined" || typeof console.log === "undefined")
@@ -23,7 +20,7 @@
 	
 	$(document).ready(function() {
 		conn = new client.ConnectionManager({"force-new-connect":false});
-		conn.connect("localhost:8080");
+		conn.connect("localhost", 8080);
 	});
 	
 	

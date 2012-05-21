@@ -43,7 +43,7 @@ if(program.port) {
 }
 
 var app = express.createServer();
-var io = socket_lib.listen(this.app, {"log level":0});
+var io = socket_lib.listen(app, {"log level":0});
 io.set("log level", 0);
 app.listen(port);
 app.use("/static", express.static(__dirname + '/static'));

@@ -1,3 +1,5 @@
+client = {};
+
 client.ConnectionManager = function() {
     // Initialize a ConnectionManager object.
 }
@@ -7,8 +9,8 @@ client.ConnectionManager.prototype = {
     user: null,
     socket: null,
     
-    connect: function() {
-        this.socket = io.connect("http://" + host + ":" + port, {'force new connection': options["force-new-connection"],
+    connect: function(host, port) {
+        this.socket = io.connect("http://" + host + ":" + port, {'force new connection': true,
             rememberTransport: false, 
             'reconnect': true,
             'reconnection delay': 500,
@@ -18,7 +20,7 @@ client.ConnectionManager.prototype = {
             });
         
         // anything else to do on connect? probably not.
-        socket.on("chat", )
+        // socket.on("chat", )
     },
     
     registerSocketListener: function(type) {
@@ -45,15 +47,15 @@ client.ConnectionManager.prototype = {
                 this.user = arg["name"];
                 break;
         }
-    }
+    },
     
     
     
     chat: function(msg) {
-        socket.emit("chat", {"message", msg});
-    }
+        socket.emit("chat", {"message": msg});
+    },
     
     identify: function(name) {
         socket.emit("identify", {"name":name});
-    }
+    },
 }
