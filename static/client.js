@@ -19,12 +19,20 @@ client.ConnectionManager.prototype = {
                 // do something
             });
         
+        this.socket["manager"] = this;
+        
         // anything else to do on connect? probably not.
         // socket.on("chat", )
+        
+        this.registerSocketListener("chat");
+        this.registerSocketListener("identify-ok");
+        this.registerSocketListener("vote");
+        this.registerSocketListener("poll");
+        this.registerSocketListener("join-ok");
+        this.registerSocketListener("leave-ok");
     },
     
     registerSocketListener: function(type) {
-        client.log("Registering socket listener: " + type);
         this.socket.on(type, function(data) {
             this.manager.receivedMessage.call(this.manager, type, data);
         });
@@ -47,6 +55,8 @@ client.ConnectionManager.prototype = {
                 this.user = arg["name"];
                 break;
         }
+        
+        this.trigger("message." + type, arg);
     },
     
     
@@ -58,4 +68,14 @@ client.ConnectionManager.prototype = {
     identify: function(name) {
         this.socket.emit("identify", {"name":name});
     },
+    
+    join: function(roomName) {
+        this.socket.emit("join", {"room":roomName});
+    }
 }
+
+client.log = function(msg) {
+        console.log(msg);
+}
+
+_.extend(client.ConnectionManager.prototype, Backbone.Events);

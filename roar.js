@@ -72,26 +72,44 @@ io.sockets.on('connection', function(socket) {
     
     socket.on("chat", function(data) {
         socket.get("identity", function(err, userName) {
-            console.log(userName + ": " + data["message"]);
-            
+            socket.get("room", function(err, roomName) {
+                logger.info("(" + roomName + ") " + userName + ": " + data["message"]);
+                
+                io.sockets.in("room:" + roomName).emit("chat",
+                    {"name":userName, "timestamp":new Date().getTime(),
+                    "message":data["message"]});
+            });
         });
     });
     
     socket.on("join", function(data) {
         socket.get("identity", function(err, userName) {
+            socket.get("room", function(err, currentRoom) {
             
             
+            if(!_.isNull(currentRoom) && !_.isUndefined(currentRoom)) {
+                // if it's valid, then leave it.
+                socket.leave("room:" + currentRoom);
+                logger.info(userName + " leaving " + currentRoom);
+                
+            }
             
+                        
+            // join the socket to the room.
+            socket.join("room:" + data["room"]);
+            socket.set("room", data["room"]);
             
+            logger.info(userName + " joining " + data["room"]);
+            
+            });
         });
     });
     
     socket.on("leave", function(data) {
         socket.get("identity", function(err, userName) {
+            socket.leave("room:" + data["room"]);
             
-            
-            
-            
+            logger.info(userName + " leaving " + data["room"]);
         });
     });
     
