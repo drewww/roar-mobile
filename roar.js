@@ -69,7 +69,7 @@ app.get('/test', function(req, res) {
 // setup the state management code
 
 // hash of sectionName -> ServerEventsCollection.
-var sectionEvents = {}
+var sectionEvents = new model.SectionEventCollection();
 
 io.sockets.on('connection', function(socket) {
     // console.log("connection: " + socket);
@@ -95,7 +95,7 @@ io.sockets.on('connection', function(socket) {
                 io.sockets.in("room:" + roomName).emit("chat",
                     newChat.toJSON());
                 
-                sectionEvents[roomName].add(newChat);
+                sectionEvents.add(newChat);
                 
                 logger.info("(" + roomName + ", " + newChat.id +") " + newChat.get("name") + ": " + newChat.get("message"));                
                 
@@ -119,9 +119,9 @@ io.sockets.on('connection', function(socket) {
             logger.info(userName + " joining " + data["room"]);
             
             if(_.isUndefined(sectionEvents[data["room"]])) {
-                // 
                 console.log("(" + data["room"] + ") " + "section has never been joined before!")
-                sectionEvents[data["room"]] = new model.SectionEventCollection();
+                
+                // sectionEvents[data["room"]] = new model.SectionEventCollection();
             }
             
             });
@@ -147,6 +147,10 @@ io.sockets.on('connection', function(socket) {
     });
 });
 
+
+function publishPoll() {
+    
+}
 
 
 

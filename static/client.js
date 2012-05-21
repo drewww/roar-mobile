@@ -53,12 +53,18 @@ client.ConnectionManager.prototype = {
         switch(type) {
             case "chat":
                 var newChat = new model.Chat(data);
-                
                 this.sectionEvents.add(newChat);
-                
                 console.log("CHAT: " + JSON.stringify(newChat));
                 break;
             case "chat-ok":
+                break;
+            
+            case "poll":
+                var newPoll = new model.Poll(data);
+                this.sectionEvents.add(newPoll);
+                
+                console.log("POLL: " + JSON.stringify(newPoll));
+                
                 break;
             
             case "identity-ok":
