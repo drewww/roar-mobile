@@ -74,6 +74,44 @@ var sectionItems = new model.SectionEventCollection();
 
 var roomPopulations = {};
 
+
+var nameImages = {
+    "Drew":"/static/img/users/drew.jpeg",
+    "Mark":"/static/img/users/mark.jpeg",
+}
+
+var profilePrefix = "/static/img/users/drew.jpeg";
+var randomProfileImages = ["157875_714307_743900256_q.jpg",
+"161302_9102274_886654195_q.jpg",
+"174480_16820780_7820102_q.jpg",
+"186182_1496026749_7547165_q.jpg",
+"187069_714153_3743146_q.jpg",
+"211341_214500083_8181198_q.jpg",
+"260698_620410669_1248627382_q.jpg",
+"273540_544790187_4751197_q.jpg",
+"274318_724123036_2055327919_q.jpg",
+"370432_555599795_232385949_q.jpg",
+"370963_509300458_621846615_q.jpg",
+"371518_560795149_1523996772_q.jpg",
+"371785_214500107_966269545_q.jpg",
+"41730_214500043_537617273_q.jpg",
+"48801_930412_163473879_q.jpg",
+"572367_518786953_429537474_q.jpg"];
+
+
+function getProfileURLForName(name) {
+    if(name in nameImages) {
+        return nameImages[name];
+    } else {
+        return getRandomProfileImage();
+    }
+}
+
+function getRandomProfileURL() {
+    return profilePrefix = "/default.png";
+}
+
+
 io.sockets.on('connection', function(socket) {
     // console.log("connection: " + socket);
     logger.info("Received connection: " + socket.id);
@@ -92,7 +130,7 @@ io.sockets.on('connection', function(socket) {
                 var newChat = new server_model.ServerItem({type:"chat",
                 name:userName, timestamp:new Date().getTime(),
                 message:data["message"],
-                avatarUrl:"/static/img/users/mark.jpeg"});
+                avatarUrl:getProfileURLForName(userName)});
                 
                 // var newChat = new server_model.ServerChat();
                 
@@ -275,67 +313,67 @@ function initializePulseItems() {
     
     // make a bunch of items.
     new server_model.ServerItem({"type":"chat", "message":"This is a really sweet trending chat message",
-    "avatarUrl":"/static/img/users/mark.jpeg", "name":"Mark",
+    "avatarUrl":getRandomProfileURL(), "name":"Mark",
     "timestamp":new Date().getTime(), "votes":18});
 
     new server_model.ServerItem({"type":"chat", "message":"YANKEES SUCK",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"Drew",
+    "avatarUrl":getRandomProfileURL(), "name":"Drew",
     "timestamp":new Date().getTime(), "votes":18});
 
     new server_model.ServerItem({"type":"chat", "message":"LETS GO RED SOX LETS GO",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"Drew",
+    "avatarUrl":getRandomProfileURL(), "name":"Drew",
     "timestamp":new Date().getTime(), "votes":18});
 
     new server_model.ServerItem({"type":"chat", "message":"If they don't make something happen this inning, they're never going to catch up. Seriously critical moment.",
-    "avatarUrl":"/static/img/users/mark.jpeg", "name":"Mark",
+    "avatarUrl":getRandomProfileURL(), "name":"Mark",
     "timestamp":new Date().getTime(), "votes":18});
     
     new server_model.ServerItem({"type":"sign", "url":"/static/img/users/mark.jpeg",
-    "avatarUrl":"/static/img/users/mark.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":423});
 
     new server_model.ServerItem({"type":"sign", "url":"/static/img/users/default.jpeg",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":423});
 
     new server_model.ServerItem({"type":"sign", "url":"/static/img/users/default.jpeg",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":423});
 
     new server_model.ServerItem({"type":"word", "word":"jeter",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":38});
     
     new server_model.ServerItem({"type":"word", "word":"cano",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":38});
     
     new server_model.ServerItem({"type":"word", "word":"arod",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":38});
     
     new server_model.ServerItem({"type":"word", "word":"cc",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":38});
     
     new server_model.ServerItem({"type":"word", "word":"rivera",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":38});
     
     new server_model.ServerItem({"type":"word", "word":"beckett",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":38});
     
     new server_model.ServerItem({"type":"word", "word":"pedroia",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":38});
 
     new server_model.ServerItem({"type":"word", "word":"sox",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":38});
 
     new server_model.ServerItem({"type":"word", "word":"yankees",
-    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":38});
 
     
