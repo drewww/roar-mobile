@@ -188,6 +188,7 @@ views.PollView = Backbone.View.extend({
   <br class='clear'>\
   </div>\
   <div class='vote-right vote-button btn btn-blue' voteIndex='1'><%=options[1]%></div>\
+  <br class='clear'>\
   </div>\
   "),
   
@@ -198,7 +199,8 @@ views.PollView = Backbone.View.extend({
   initialize: function(args) {
       Backbone.View.prototype.initialize.call(this, args);
       
-      this.model.on("update", function() {
+      conn.on("message.poll-vote", function() {
+          console.log("UPDATING!");
         var sectionVotes = this.model.get("sectionVoters");
         var globalVotes = this.model.get("totalVotes");
         this.$(".section-results .opt2").text(sectionVotes[1].length);

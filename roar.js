@@ -164,14 +164,14 @@ io.sockets.on('connection', function(socket) {
         });
     });
     
-    socket.on("poll-vote", function(data) {
-        socket.get("identity", function(err, userName) {
-            socket.get("room", function(err, roomName) {
-                var poll = sectionItems.get(data["pollId"]);
-                poll.addVote(roomName, "/static/img/users/default.png", data["index"]);
-            });
-        });
-    });
+    // socket.on("poll-vote", function(data) {
+    //     socket.get("identity", function(err, userName) {
+    //         socket.get("room", function(err, roomName) {
+    //             var poll = sectionItems.get(data["pollId"]);
+    //             poll.addVote(roomName, "/static/img/users/default.png", data["index"]);
+    //         });
+    //     });
+    // });
     
     socket.on("disconnect", function(data) {
         socket.get("identity", function(err, userName) {
@@ -191,6 +191,23 @@ io.sockets.on('connection', function(socket) {
         "options":["red", "blue"]});
         
         io.sockets.emit("section", newPoll);
+    });
+    
+    socket.on("poll-vote", function(data) {
+        socket.get("identity", function(err, userName) {
+            // look up the item and broadcast a vote event for it.
+            
+            var poll = server_model.items[data["pollId"]];
+            var voterUrl = "/static/img/users/default.png";
+            
+            poll.addSectionVote(data["index"], voterUrl);
+            // poll.addGlobalVote(data["index"], 10);
+            
+            // now broadcast this out to everyone.
+            io.sockets.emit("poll-vote", {type:"section",
+                "pollId":data["pollId"], "url":voterUrl,
+                "index":data["index"]});
+        });
     });
 });
 
