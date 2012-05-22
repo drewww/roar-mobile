@@ -177,7 +177,7 @@ var baseItems = [
 {"type":"sign", "url":"/static/img/users/default.png",
 "avatarUrl":"/static/img/users/default.png", "name":"drewwww",
 "timestamp":new Date().getTime(), "votes":423},
-{"type":"wor", "word":"/static/img/users/default.png",
+{"type":"word", "word":"Jeter",
 "avatarUrl":"/static/img/users/default.png", "name":"drewwww",
 "timestamp":new Date().getTime(), "votes":38}];
 

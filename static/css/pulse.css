@@ -4,6 +4,12 @@
     height: 75px;
     background-color: red;
     margin: 5px;
+    width: 100%;
+}
+
+.row div {
+    float: left;
+    margin-left: 5px;
 }
 
 #pulse {
@@ -19,11 +25,27 @@
     height: 65px;
     width: 65px;
 }
+#pulse .sign img {
+    height: 65px;
+    width: 65px;
+}
 
 #pulse .chat {
-    width: 150px;
+    width: 300px;
+}
+
+#pulse .chat .message {
+    width: 200px;
+}
+
+#pulse .chat img {
+    height: 65px;
+    width: 65px;
+    float: left;
 }
 
 #pulse .word {
     width: 75px;
+    font-size: 2em;
+    font-weight: bold;
 }

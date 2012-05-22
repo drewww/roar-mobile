@@ -101,6 +101,7 @@ client.ConnectionManager.prototype = {
                 
                 for(var i in data["items"]) {
                     var item = data["items"][i];
+                    console.log("ITEM: " + JSON.stringify(item));
                     
                     switch(item.type) {
                         case "chat":
@@ -110,7 +111,7 @@ client.ConnectionManager.prototype = {
                             row.addItem(new pulse.Sign(item));
                             break;
                         case "word":
-                            row.addItem(new model.Word(item));
+                            row.addItem(new pulse.Word(item));
                             break;
                     }
                     
