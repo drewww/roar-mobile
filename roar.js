@@ -103,12 +103,12 @@ function getProfileURLForName(name) {
     if(name in nameImages) {
         return nameImages[name];
     } else {
-        return getRandomProfileImage();
+        return getRandomProfileURL();
     }
 }
 
 function getRandomProfileURL() {
-    return profilePrefix = "/default.png";
+    return profilePrefix + randomProfileImages[Math.floor(Math.random(randomProfileImages.length))];
 }
 
 
