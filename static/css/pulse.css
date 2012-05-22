@@ -12,6 +12,10 @@
     margin-left: 5px;
 }
 
+.touched {
+    box-shadow: 5px 5px 5px #444;
+}
+
 #pulse {
     overflow-y: auto;
 }
@@ -97,7 +101,7 @@
 }
 
 #pulse .word {
-    width: 75px;
+/*    width: 75px;*/
     height: 35px;
     font-size: 2em;
     font-weight: bold;

@@ -19,6 +19,16 @@ pulse.PulseView = Backbone.View.extend({
     
     template: _.template("<div id='pulse-container'></div>"),
     
+    events: {
+        'mousedown  .chat, .sign':'startTouch',
+        'touchstart .chat, .sign':'startTouch',
+        'mouseup  .chat, .sign':'endTouch',
+        'touchend .chat, .sign':'endTouch',
+
+    },
+    
+    touchStartTime: 0,
+    
     initialize: function(args) {
         Backbone.Model.prototype.initialize.call(this, args);
         // console.log("INITIALZING PULSE VIEW");
@@ -34,7 +44,6 @@ pulse.PulseView = Backbone.View.extend({
                 newView = new pulse.TrendingChatView({"model":item}).render().el;
             }
             
-
             if(!this.checkForInvisibleItems()) {
                 this.$("#pulse-container").isotope( 'insert', $(newView));                
             }
@@ -42,6 +51,43 @@ pulse.PulseView = Backbone.View.extend({
             
         }, this);
     },
+    
+    startTouch: function(event) {
+        // move up the reference chain until we hit the pulse-item.
+        var target = $(event.target);
+        while(!target.hasClass("pulse-item")) {
+            target = target.parent();
+        }
+
+
+        $(target).addClass("touched");
+        console.log("start touch");
+        
+        this.touchStartTime = new Date().getTime();
+    },
+
+    endTouch: function(event) {
+        if(this.touchStartTime==0) return;
+
+        // move up the reference chain until we hit the pulse-item.
+        var target = $(event.target);
+        while(!target.hasClass("pulse-item")) {
+            target = target.parent();
+        }
+        
+        
+        $(target).removeClass("touched");
+        console.log("end touch: ");
+        console.log(target);
+        
+        if(new Date().getTime() - this.touchStartTime > 1000) {
+            // vote on that baby.
+            conn.vote(target.attr("item-id"));
+        }
+        
+        this.touchStartTime=0;
+    },
+
     
     checkForInvisibleItems: function() {
         $.each($(".pulse-item"), function(key, value) {
@@ -96,8 +142,17 @@ pulse.SignView = Backbone.View.extend({
    
    template: _.template("<img src='<%=url%>'><div class='votes'><%=votes%></div>"),
    
+   initialize: function(args) {
+       Backbone.View.prototype.initialize.call(this, args);
+       
+       this.model.on("change:votes", function() {
+           this.$(".votes").text(this.model.get("votes"));
+       }, this);
+   },
+   
    render: function() {
        this.$el.html(this.template(this.model.toJSON()));
+       this.$el.attr("item-id", this.model.id);
        return this;
    }
 });
@@ -107,8 +162,19 @@ pulse.TrendingWordView = Backbone.View.extend({
    
    template: _.template("<%=word%>"),
    
+   
+   initialize: function(args) {
+       Backbone.View.prototype.initialize.call(this, args);
+       
+       this.model.on("change:votes", function() {
+           this.$(".votes").text(this.model.get("votes"));
+       }, this);
+   },
+   
    render: function() {
        this.$el.html(this.template(this.model.toJSON()));
+       this.$el.attr("item-id", this.model.id);
+
        return this;
    }
 });
@@ -121,8 +187,18 @@ pulse.TrendingChatView = Backbone.View.extend({
     <div class='contents'><%=message%></div>\
     <div class='closequote'>&rdquo;</div><div class='votes'><%=votes%></div></div>"),
 
+    initialize: function(args) {
+        Backbone.View.prototype.initialize.call(this, args);
+        
+        this.model.on("change:votes", function() {
+            this.$(".votes").text(this.model.get("votes"));
+        }, this);
+    },
+
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
+        this.$el.attr("item-id", this.model.id);
+
         return this;
     }
 });
@@ -131,6 +207,10 @@ pulse.Sign= Backbone.Model.extend({
     defaults: function() {
         return {"url":"/static/img/users/default.png",
                 "votes":0};
+    },
+    
+    addVote: function() {
+        this.set({"votes":this.get("votes")+1});
     }
 });
 
@@ -164,7 +244,12 @@ pulse.Item = Backbone.Model.extend({
         message: "the message",
         avatarUrl: "/static/img/users/default.png",
         };
+    },
+    
+    addVote: function() {
+        this.set({"votes":(this.get("votes")+1)});
     }
+    
 });
 
 pulse.PulseCollection = Backbone.Collection.extend({

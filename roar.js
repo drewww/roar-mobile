@@ -66,6 +66,7 @@ app.get('/test', function(req, res) {
 });
 
 generatePulse();
+initializePulseItems();
 // setup the state management code
 
 // hash of sectionName -> ServerEventsCollection.
@@ -150,8 +151,12 @@ io.sockets.on('connection', function(socket) {
     
     socket.on("vote", function(data) {
         socket.get("identity", function(err, userName) {
-            var sectionEvent = sectionItems.get(data["id"]);
             
+            logger.info("id: " + data["id"] + "; server_model.items.length: " + server_model.items.length);
+            var sectionEvent = server_model.items[data["id"]];
+            
+            
+            logger.info("id: " + data["id"] + " itemId: " + sectionEvent.id);
             sectionEvent.addVote();
             
             io.sockets.emit("vote", {id:data["id"]});
@@ -181,17 +186,88 @@ io.sockets.on('connection', function(socket) {
 
 // periodically publish pulse data.
 
-var baseItems = [
-{"type":"chat", "message":"This is a really sweet trending chat message",
-"avatarUrl":"/static/img/users/mark.jpeg", "name":"marfay",
-"timestamp":new Date().getTime(), "votes":18},
-{"type":"sign", "url":"/static/img/users/mark.jpeg",
-"avatarUrl":"/static/img/users/mark.jpeg", "name":"drewwww",
-"timestamp":new Date().getTime(), "votes":423},
-{"type":"word", "word":"Jeter",
-"avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
-"timestamp":new Date().getTime(), "votes":38}];
 
+function initializePulseItems() {
+    
+    // make a bunch of items.
+    new server_model.ServerItem({"type":"chat", "message":"This is a really sweet trending chat message",
+    "avatarUrl":"/static/img/users/mark.jpeg", "name":"Mark",
+    "timestamp":new Date().getTime(), "votes":18});
+
+    new server_model.ServerItem({"type":"chat", "message":"YANKEES SUCK",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"Drew",
+    "timestamp":new Date().getTime(), "votes":18});
+
+    new server_model.ServerItem({"type":"chat", "message":"LETS GO RED SOX LETS GO",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"Drew",
+    "timestamp":new Date().getTime(), "votes":18});
+
+    new server_model.ServerItem({"type":"chat", "message":"If they don't make something happen this inning, they're never going to catch up. Seriously critical moment.",
+    "avatarUrl":"/static/img/users/mark.jpeg", "name":"Mark",
+    "timestamp":new Date().getTime(), "votes":18});
+    
+    new server_model.ServerItem({"type":"sign", "url":"/static/img/users/mark.jpeg",
+    "avatarUrl":"/static/img/users/mark.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":423});
+
+    new server_model.ServerItem({"type":"sign", "url":"/static/img/users/default.jpeg",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":423});
+
+    new server_model.ServerItem({"type":"sign", "url":"/static/img/users/default.jpeg",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":423});
+
+    new server_model.ServerItem({"type":"word", "word":"jeter",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":38});
+    
+    new server_model.ServerItem({"type":"word", "word":"cano",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":38});
+    
+    new server_model.ServerItem({"type":"word", "word":"arod",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":38});
+    
+    new server_model.ServerItem({"type":"word", "word":"cc",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":38});
+    
+    new server_model.ServerItem({"type":"word", "word":"rivera",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":38});
+    
+    new server_model.ServerItem({"type":"word", "word":"beckett",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":38});
+    
+    new server_model.ServerItem({"type":"word", "word":"pedroia",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":38});
+
+    new server_model.ServerItem({"type":"word", "word":"sox",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":38});
+
+    new server_model.ServerItem({"type":"word", "word":"yankees",
+    "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+    "timestamp":new Date().getTime(), "votes":38});
+
+    
+}
+
+// var baseItems = [
+// {"type":"chat", "message":"This is a really sweet trending chat message",
+// "avatarUrl":"/static/img/users/mark.jpeg", "name":"marfay",
+// "timestamp":new Date().getTime(), "votes":18},
+// {"type":"sign", "url":"/static/img/users/mark.jpeg",
+// "avatarUrl":"/static/img/users/mark.jpeg", "name":"drewwww",
+// "timestamp":new Date().getTime(), "votes":423},
+// {"type":"word", "word":"Jeter",
+// "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
+// "timestamp":new Date().getTime(), "votes":38}];
+// 
 
 function leaveRoom(roomName, socket) {
     
@@ -220,7 +296,44 @@ function generatePulse() {
     setTimeout(generatePulse, 10000);
 
     logger.info("PULSING");
-    io.sockets.emit("pulse", {items:baseItems});
+    
+    // pick three random items from the list with vote counts > 0.
+    
+    var pulseItems = [];
+    
+    while(true) {
+        var nextItem = chooseRandomPulseItem();
+        pulseItems.push(nextItem);
+        
+        if(_.isUndefined(nextItem)) {
+            break;
+        }
+        
+        if(nextItem.get("type")=="word") {
+            pulseItems.push(chooseRandomPulseItem());
+            pulseItems.push(chooseRandomPulseItem());
+        }
+        
+        
+        if(pulseItems.length >=3) {
+            break;
+        }
+    }
+    
+    io.sockets.emit("pulse", {items:pulseItems});
+}
+
+function chooseRandomPulseItem() {
+    
+    var itemsWithVotes = _.filter(server_model.items, function(item) {
+        return item.get("votes")>0;
+    });
+    
+    logger.info("itemsWithVotes: " + itemsWithVotes.length);
+    
+    var index = Math.floor(Math.random()*itemsWithVotes.length);
+    
+    return itemsWithVotes[index];
 }
 
 function publishPoll() {
