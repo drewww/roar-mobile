@@ -22,13 +22,18 @@ pulse.PulseView = Backbone.View.extend({
             }
             
             this.$("#pulse-container").isotope( 'insert', $(newView));
+            this.$("#pulse-container").isotope( 'reLayout');
             
         }, this);
     },
     
     render: function() {
         this.$el.html(this.template());
-        this.$("#pulse-container").isotope({itemSelector:".pulse-item"});
+        this.$("#pulse-container").isotope({itemSelector:".pulse-item",
+        masonry: {
+          columnWidth: 64
+        }
+        });
         
         return this;
     }
