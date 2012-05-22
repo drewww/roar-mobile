@@ -6,6 +6,7 @@ div#section {
   left: 0px;
   width: 50%;
   height: 100%;
+  overflow-y: scroll;
 }
 
 div#status {
@@ -60,29 +61,27 @@ div#section-select input#create {
 
 div#events-list { 
   position: absolute;
-  top: 30px;
-  height: 90%;
+  bottom: 50px;
   width: 100%;
-  overflow-y: auto;
-  
-  box-shadow: -1px 5px 20px -5px #666;
-  -webkit-box-shadow: -1px 5px 20px -5px #666;
+  height: auto;
 }
 
 div#events-list .chat-event {
   display: none;
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  
+    
   margin-bottom: 2px;
-  height: 34px;
+/*  height: 34px;*/
   width: 100%;
 /*  border: 1px solid #666;*/
 }
 
 div#events-list .admin {
-    background-color: #aaa;
-    font-style: italic;
+    background-color: rgba(255,51,0,0.5);
+}
+
+div#events-list .admin p {
+  font-weight: 100;
+  padding: 0.2em;
 }
 
 .clear {
@@ -97,7 +96,8 @@ div#events-list .chat-event .profile {
 }
 
 div#events-list .chat-event .text {
-  margin-top: 5px
+  margin-top: 5px;
+  width: 100%;
 }
 
 
@@ -105,6 +105,7 @@ div#section input#msg {
   position: absolute;
   left: 0px;
   bottom: 0px;
+  height: 50px;
   width: 100%;
   
   padding: 0px;

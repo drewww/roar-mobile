@@ -34,7 +34,7 @@ views.SectionView = Backbone.View.extend({
         </li> \
       </ul> \
     </div> \
-  <div style='display:none;' id='events-list'></div><form id='post' style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
+  <div style='height:90%;overflow-y:scroll;'><div style='display:none;' id='events-list'></div></div><form id='post' style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
   
   events: {
     'submit #creation':'createSection',
