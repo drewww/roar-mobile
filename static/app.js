@@ -29,7 +29,7 @@ views.SectionView = Backbone.View.extend({
           <ul> \
             <li data-icon='toprated'><a class='section-link' data-name='Boston'><span class='population'>563</span> Boston</a></li> \
             <li data-icon='toprated'><a class='section-link' data-name='MLB Playoffs'><span class='population'>342</span> MLB Playoffs</a></li> \
-            <li data-icon='toprated'><a class='section-link' data-name='Mad Men'><span class='population'>111</span> Mad Men</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='Mad Men'><span class='population'>111</span> Chelsea vs. </a></li> \
           </ul> \
         </li> \
       </ul> \
@@ -71,7 +71,7 @@ views.SectionView = Backbone.View.extend({
      var $elem2 = $(this.$('.population')[Math.floor(Math.random() * 6)]);
      $elem2.text(parseInt($elem2.text())-Math.floor(Math.random()*5));
      if (parseInt($elem2.text()) < 0) $elem2.text(5);
-    },500);
+    },2000);
   },
   
   createSection: function(event) {
