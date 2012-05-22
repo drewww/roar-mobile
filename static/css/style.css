@@ -90,8 +90,6 @@ div#events-list .admin p {
 
 .clear {
   clear: both;
-  display: block;
-  margin: 10px 0;
 }
 
 div#events-list .chat-event .profile {
@@ -166,6 +164,7 @@ div#pulse {
     font-family: Helvetica;
     
     z-index: 1000000000;
+    margin-bottom: 31px;
 }
 
 .vote-button {

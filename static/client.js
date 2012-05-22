@@ -39,7 +39,8 @@ client.ConnectionManager.prototype = {
         this.registerSocketListener("pulse");
 
         this.registerSocketListener("population");
-
+        
+        this.registerSocketListener("poll-vote");
     },
     
     registerSocketListener: function(type) {
@@ -81,22 +82,34 @@ client.ConnectionManager.prototype = {
                 
                 console.log("VOTE: " + JSON.stringify(data));
                 break;
-            case "poll-vote":
-                var sectionEvent = this.sectionItems.get(data["id"]);
-                
-                if(!_.isUndefined(sectionEvent)) {
-                    sectionEvent.addVote(data);
-                }
-                
-                console.log("POLLVOTE: " + JSON.stringify(data));
-                
-                break;
+            // case "poll-vote":
+            //     var sectionEvent = this.sectionItems.get(data["id"]);
+            //     
+            //     if(!_.isUndefined(sectionEvent)) {
+            //         sectionEvent.addVote(data);
+            //     }
+            //     
+            //     console.log("POLLVOTE: " + JSON.stringify(data));
+            //     
+            //     break;
             case "join-ok":
                 console.log("JOIN OKAY! " + data["room"]);
                 this.sectionName = data["room"];
                 this.sectionItems.reset();
                 break;
-            
+            case "poll-vote":
+                var pollItem = this.sectionItems.get(data["pollId"]);
+                
+                switch(data["type"]) {
+                    case "section":
+                        pollItem.addSectionVote(data["index"], data["url"]);
+                        console.log("ADDED SECTION VOTE: " + JSON.stringify(data));
+                        break;
+                    case "global":
+                        pollItem.addGlobalVote(data["index"], 13);
+                        break;
+                }
+                break;
             case "pulse":
                 console.log("PULSE");
                 
@@ -158,7 +171,7 @@ client.ConnectionManager.prototype = {
     },
     
     votePoll: function(pollId, btnIndex) {
-        console.log("POLLID: " + pollId + "; btn: " + btnIndex);
+        this.socket.emit("poll-vote", {"pollId":pollId, "index":btnIndex});
     }
 }
 
