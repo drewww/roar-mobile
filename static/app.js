@@ -27,9 +27,9 @@ views.SectionView = Backbone.View.extend({
         <li> \
           Popular \
           <ul> \
-            <li data-icon='toprated'><a class='section-link' data-name='/r/baseball'><span class='population'>852</span> /r/baseball</a></li> \
             <li data-icon='toprated'><a class='section-link' data-name='Red Sox'><span class='population'>563</span> Red Sox</a></li> \
             <li data-icon='toprated'><a class='section-link' data-name='Yankees'><span class='population'>342</span> Yankees</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='/r/baseball'><span class='population'>133</span> /r/baseball</a></li> \
           </ul> \
         </li> \
       </ul> \
