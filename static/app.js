@@ -4,11 +4,25 @@ views.SectionView = Backbone.View.extend({
   id: 'section',
   
   template: _.template("<div id='status'><h1></h1><h2>2 people</h2></div> \
-  <div id='section-select'> \
-    <div id='jqt'> \
-      <div>stuff</div> \
+    <div id='section-select' data-role='view' data-title='Destinations'> \
+      <ul data-role='listview' data-style='inset' data-type='group'> \
+        <li> \
+          Africa \
+          <ul> \
+            <li data-icon='toprated'><a>Nairobi</a></li> \
+          </ul> \
+        </li> \
+        <li> \
+          America \
+          <ul> \
+            <li data-icon='globe'><a>Boston</a></li> \
+            <li data-icon='globe'><a>Ottawa</a></li> \
+            <li data-icon='toprated'><a>San Francisco</a></li> \
+          </ul> \
+        </li> \
+      </ul> \
     </div> \
-  </div><div style='display:none;' id='events-list'></div><form style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
+  <div style='display:none;' id='events-list'></div><form style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
   
   events: {
     'submit form':'post'

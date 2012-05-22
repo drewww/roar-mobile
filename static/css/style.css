@@ -32,6 +32,10 @@ div#section-select {
   height: 80%;
 }
 
+div#section-select .km-content {
+  background: none;
+}
+
 div#section-select input#search {
   width: 100%;
   padding: 0px;
