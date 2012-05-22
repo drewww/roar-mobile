@@ -53,11 +53,6 @@
       conn = new client.ConnectionManager({"force-new-connect":false});
 		  conn.connect("<%= host %>", <%=port%>);
 		  
-		  setTimeout(function() {
-		    conn.identify('Mark');
-		    conn.join('MIT');
-		  }, 100);
-		  
       main_view = new views.MainView(conn);
       $("body").append(main_view.render().el); 
       

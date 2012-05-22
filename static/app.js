@@ -5,11 +5,15 @@ views.SectionView = Backbone.View.extend({
   
   template: _.template("<div id='status'><h1></h1><h2>2 people</h2></div> \
     <div id='section-select' data-role='view' data-title='Sections'> \
+      <div id='login' style='width:410px;margin-left:auto;margin-right:auto;'> \
+        <img class='tw-login' src='/static/img/tw-logo.png' width='200' /> \
+        <img class='fb-login' src='/static/img/fb-logo.png' width='200' /> \
+      </div> \
       <ul data-role='listview' data-style='inset' data-type='group'> \
         <li> \
-          Search \
+          Create \
           <ul> \
-            <li data-icon='search'><input id='search' type='text'></li> \
+            <li data-icon='add'><form id='creation'><input id='create' type='text'></form></li> \
           </ul> \
         </li> \
         <li> \
@@ -33,7 +37,11 @@ views.SectionView = Backbone.View.extend({
   <div style='display:none;' id='events-list'></div><form style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
   
   events: {
+    'submit #creation':'createSection',
     'submit form':'post',
+    'click #status':'showSections',
+    'click .tw-login':'twLogin',
+    'click .fb-login':'fbLogin',
     'click .section-link':'setSection'
   },
   
@@ -49,22 +57,48 @@ views.SectionView = Backbone.View.extend({
     }, this);
   },
   
+  createSection: function(event) {
+    conn.join(this.$('#create').val());
+    this.$('#section-select').animate({
+      top: '-=1000px'
+    }, 2000);
+    this.$('#events-list,form').fadeIn(2000);
+  },
+  
   post: function(event) {
     event.preventDefault();
     views.conn.chat($('#msg').val());
     $('#msg').val('').focus();
   },
   
+  showSections: function(event) {
+    this.$('#section-select').animate({
+      top: '+=1000px'
+    }, 1000);
+    this.$('#events-list,form').fadeOut(1000);
+  },
+  
+  twLogin: function(event) {
+    this.$('#login').replaceWith($("<img src='/static/img/users/mark.jpeg' width='32' /><b>Mark Fayngersh</b>"));
+    conn.identify('Mark');
+  },
+  
+  fbLogin: function(event) {
+    this.$('#login').replaceWith($("<img src='/static/img/users/drew.jpeg' width='32' /><b>Drew Harry</b>"));
+    conn.identify('Drew')
+  },
+  
   setSection: function(event) {
     conn.join($(event.target).text());
     this.$('#section-select').animate({
-      top: '-=500px'
-    }, 1000);
-    this.$('#events-list,form').fadeIn();
+      top: '-=1000px'
+    }, 2000);
+    this.$('#events-list,form').fadeIn(2000);
   },
   
   render: function() {
     this.$el.html(this.template());
+    this.$("#buttongroup").kendoMobileButtonGroup();
     return this;
   }
 });
