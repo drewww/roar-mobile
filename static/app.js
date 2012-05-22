@@ -61,9 +61,10 @@ views.SectionView = Backbone.View.extend({
     
     // Simulate real-time population changes
     setInterval(function() {
-     var $elem = $(this.$('.population')[Math.floor(Math.random() * 6)]);
-     $elem.text(parseInt($elem.text())+Math.floor(Math.random()*5));
-     $elem.text(parseInt($elem.text())-Math.floor(Math.random()*5));
+     var $elem1 = $(this.$('.population')[Math.floor(Math.random() * 6)]);
+     $elem1.text(parseInt($elem1.text())+Math.floor(Math.random()*5));
+     var $elem2 = $(this.$('.population')[Math.floor(Math.random() * 6)]);
+     $elem2.text(parseInt($elem2.text())-Math.floor(Math.random()*5));
     },500);
   },
   
