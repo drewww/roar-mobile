@@ -254,6 +254,7 @@ div#sign-create #sign-menu #submit-button {
   bottom: 13px;
   left: -5px;
   float: right;
+  width: 200px;
   border: 1px solid #666;
   border-radius: 2px;
   -webkit-border-radius: 2px;
