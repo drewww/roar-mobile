@@ -116,7 +116,7 @@ div#section input#msg {
   left: 0px;
   bottom: 0px;
   height: 50px;
-  width: 100%;
+  width: 89%;
   
   padding: 0px;
  
@@ -131,10 +131,52 @@ div#section form input::-webkit-input-placeholder {
   color: #666;
 }
 
+div#section #show-signcreate-view {
+  position: absolute;
+  padding: 0px !important;
+  right: 2px;
+  bottom: 2px;
+  height: 50px;
+  width: 10%;
+  font-size: 12px;
+}
+
 div#pulse {
   background-color: rgba(203,242,188,0.5);
   position: absolute;
   right: 0px;
   width: 50%;
   height: 100%;
+}
+
+div#sign-create {
+  z-index: 100000;
+  position: fixed;
+  top: 50px;
+  left: 25px;
+  width: 960px;
+  height: 600px;
+  background-color: #F2F2F2;
+  border: 1px solid #666;
+  
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+div#sign-create #sign-menu .sign-button {
+  position: relative;
+  left: 5px;
+  bottom: 10px;
+  padding: 2px;
+}
+
+div#sign-create #sign-menu #submit-button {
+  bottom: 13px;
+  left: -5px;
+  float: right;
+  border: 1px solid #666;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  background-color: rgba(255,51,0,0.5);
+  font-size: 24px;
 }

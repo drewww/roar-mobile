@@ -34,15 +34,16 @@ views.SectionView = Backbone.View.extend({
         </li> \
       </ul> \
     </div> \
-  <div style='display:none;' id='events-list'></div><form id='post' style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
+  <div style='display:none;' id='events-list'></div><form id='post' style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form><button style='display:none;' id='show-signcreate-view'>Sign</button>"),
   
   events: {
     'submit #creation':'createSection',
     'submit #post':'post',
-    'click #status':'showSections',
-    'click .tw-login':'twLogin',
-    'click .fb-login':'fbLogin',
-    'click .section-link':'setSection'
+    'touchstart #status':'showSections',
+    'touchstart .tw-login':'twLogin',
+    'touchstart .fb-login':'fbLogin',
+    'touchstart .section-link':'setSection',
+    'touchstart #show-signcreate-view':'showSign'
   },
   
   initialize: function(params) {
@@ -83,7 +84,7 @@ views.SectionView = Backbone.View.extend({
      var $elem2 = $(this.$('.population')[Math.floor(Math.random() * 6)]);
      $elem2.text(parseInt($elem2.text())-Math.floor(Math.random()*5));
      if (parseInt($elem2.text()) < 0) $elem2.text(5);
-    },500);
+    },2000);
   },
   
   createSection: function(event) {
@@ -93,20 +94,22 @@ views.SectionView = Backbone.View.extend({
     this.$('#section-select').animate({
       top: '-=1000px'
     }, 2000);
-    this.$('#events-list,form').fadeIn(2000);
+    this.$('#events-list,form,#show-signcreate-view').fadeIn(2000);
   },
   
   post: function(event) {
     event.preventDefault();
-    views.conn.chat($('#msg').val());
-    $('#msg').val('').focus();
+    if ($('#msg').val().length > 0) {
+      views.conn.chat($('#msg').val());
+      $('#msg').val('').focus();  
+    }
   },
   
   showSections: function(event) {
     this.$('#section-select').animate({
       top: '+=1000px'
     }, 1000);
-    this.$('#events-list,form').fadeOut(1000);
+    this.$('#events-list,form,#show-signcreate-view').fadeOut(1000);
   },
   
   twLogin: function(event) {
@@ -124,12 +127,22 @@ views.SectionView = Backbone.View.extend({
     this.$('#section-select').animate({
       top: '-=1000px'
     }, 2000);
-    this.$('#events-list,form').fadeIn(2000);
+    this.$('#events-list,form,#show-signcreate-view').fadeIn(2000);
+  },
+  
+  showSign: function(event) {
+    var signcreate_view = new views.SignCreateView();
+    $('#main').animate({
+      'opacity': '0.5'
+    }, function() {
+      $('body').prepend(signcreate_view.render().el);
+    });
   },
   
   render: function() {
     this.$el.html(this.template());
     this.$("#buttongroup").kendoMobileButtonGroup();
+    
     return this;
   }
 });
@@ -170,6 +183,53 @@ views.PollView = Backbone.View.extend({
   }
 });
 
+views.SignCreateView = Backbone.View.extend({
+  id: 'sign-create',
+  
+  events: {
+    'touchmove #sign-canvas':'touchMove',
+    'touchstart #clear-button':'clear',
+    'touchstart #submit-button':'submit'
+  },
+  
+  template: _.template("<canvas id='sign-canvas' width='960' height='540'></canvas><hr /> \
+  <div id='sign-menu'> \
+    <button id='clear-button' class='sign-button'>Clear</button> \
+    <button id='submit-button' class='sign-button'>Submit</button> \
+  </div>"),
+  
+  touchMove: function(event) {
+    event.preventDefault();
+    var ctx = event.target.getContext('2d');
+    for (var i = 0; i < event.originalEvent.touches.length; i++) {
+      var touch = event.originalEvent.touches[i];
+      ctx.beginPath();
+      ctx.arc(touch.pageX-50, touch.pageY-50, 10, 0, 2*Math.PI, true);
+      ctx.fill();
+      ctx.stroke();
+    }
+  },
+  
+  clear: function(event) {
+    this.$("#sign-canvas")[0].width = 960;
+  },
+  
+  submit: function(event) {
+    $('#sign-create').hide(function() {
+      $(this).remove();
+    });
+    $('#main').animate({
+      'opacity': '1.0'
+    },1000);
+    console.log(this.$('#sign-canvas')[0].toDataURL('image/png').length);
+  },
+  
+  render: function() {
+    this.$el.html(this.template());
+    return this;
+  }
+});
+
 views.MainView = Backbone.View.extend({
   id: 'main',
   
@@ -184,8 +244,8 @@ views.MainView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template());
     this.$el.append(this.section.render().el);
-    this.$el.append(this.pulse.render().el)
-        
+    this.$el.append(this.pulse.render().el);
+      
     return this;
-  }
+  },
 });
