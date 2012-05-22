@@ -58,6 +58,13 @@ views.SectionView = Backbone.View.extend({
     views.conn.sectionEvents.on('reset', function(m, c) {
         this.$("#events-list").empty();
     }, this);
+    
+    // Simulate real-time population changes
+    setInterval(function() {
+     var $elem = $(this.$('.population')[Math.floor(Math.random() * 6)]);
+     $elem.text(parseInt($elem.text())+Math.floor(Math.random()*5));
+     $elem.text(parseInt($elem.text())-Math.floor(Math.random()*5));
+    },500);
   },
   
   createSection: function(event) {
