@@ -74,6 +74,29 @@ var sectionItems = new model.SectionEventCollection();
 
 var roomPopulations = {};
 
+
+var nameImages = {
+    "Drew":"/static/img/users/drew.jpeg",
+    "Mark":"/static/img/users/mark.jpeg",
+}
+
+var profilePrefix = "/static/img/users/drew.jpeg";
+var randomProfileImages = [];
+
+
+function getProfileURLForName(name) {
+    if(name in nameImages) {
+        return nameImages[name];
+    } else {
+        return getRandomProfileImage();
+    }
+}
+
+function getRandomProfileURL() {
+    return profilePrefix = "/default.png";
+}
+
+
 io.sockets.on('connection', function(socket) {
     // console.log("connection: " + socket);
     logger.info("Received connection: " + socket.id);
@@ -92,7 +115,7 @@ io.sockets.on('connection', function(socket) {
                 var newChat = new server_model.ServerItem({type:"chat",
                 name:userName, timestamp:new Date().getTime(),
                 message:data["message"],
-                avatarUrl:"/static/img/users/mark.jpeg"});
+                avatarUrl:getProfileURLForName(userName)});
                 
                 // var newChat = new server_model.ServerChat();
                 
