@@ -4,48 +4,62 @@ pulse = {};
 pulse.PulseView = Backbone.View.extend({
     id: 'pulse',
     
-    template: _.template(""),
+    template: _.template("<div id='pulse-container'></div>"),
     
     initialize: function(args) {
         Backbone.Model.prototype.initialize.call(this, args);
+        // console.log("INITIALZING PULSE VIEW");
+        // this.$("#pulse-container").isotope({itemSelector:".pulse-item"});
         
-        this.collection.on("add", function(newRow){
-            this.$el.append(new pulse.RowView({model:newRow}).render().el);
+        this.collection.on("add", function(item){
+            var newView;
+            if(item.get("type")=="sign") {
+                newView = new pulse.SignView({"model":item}).render().el;
+            } else if(item.get("type")=="word") {
+                newView = new pulse.TrendingWordView({"model":item}).render().el;
+            } else if(item.get("type")=="chat") {
+                newView = new pulse.TrendingChatView({"model":item}).render().el;
+            }
+            
+            this.$("#pulse-container").isotope( 'insert', $(newView));
+            
         }, this);
     },
     
     render: function() {
         this.$el.html(this.template());
-        return this;
-    }
-});
-
-pulse.RowView = Backbone.View.extend({
-    className: "row",
-    
-    template: _.template(""),
-
-    render: function() {
-        
-        // loop through the different models
-        this.$el.html(this.template());
-        
-        _.each(this.model.get("items"), function(item) {
-            if(item instanceof pulse.Sign) {
-                this.$el.append(new pulse.SignView({"model":item}).render().el);
-            } else if(item instanceof pulse.Word) {
-                this.$el.append(new pulse.TrendingWordView({"model":item}).render().el);
-            } else if(item instanceof model.Chat) {
-                this.$el.append(new pulse.TrendingChatView({"model":item}).render().el);
-            }
-        }, this);
+        this.$("#pulse-container").isotope({itemSelector:".pulse-item"});
         
         return this;
     }
 });
+
+// pulse.RowView = Backbone.View.extend({
+//     className: "row",
+//     
+//     template: _.template(""),
+// 
+//     render: function() {
+//         
+//         // loop through the different models
+//         this.$el.html(this.template());
+//         
+//         _.each(this.model.get("items"), function(item) {
+//             if(item instanceof pulse.Sign) {
+//                 this.$el.append(new pulse.SignView({"model":item}).render().el);
+//             } else if(item instanceof pulse.Word) {
+//                 this.$el.append(new pulse.TrendingWordView({"model":item}).render().el);
+//             } else if(item instanceof model.Chat) {
+//                 this.$el.append(new pulse.TrendingChatView({"model":item}).render().el);
+//             }
+//         }, this);
+//         
+//         return this;
+//     }
+// });
 
 pulse.SignView = Backbone.View.extend({
-   className: "sign",
+   className: "sign pulse-item",
    
    template: _.template("<img src='<%=url%>'>"),
    
@@ -56,7 +70,7 @@ pulse.SignView = Backbone.View.extend({
 });
 
 pulse.TrendingWordView = Backbone.View.extend({
-   className: "word",
+   className: "word pulse-item",
    
    template: _.template("<%=word%>"),
    
@@ -67,7 +81,7 @@ pulse.TrendingWordView = Backbone.View.extend({
 });
 
 pulse.TrendingChatView = Backbone.View.extend({
-    className: "chat",
+    className: "chat pulse-item",
 
     template: _.template("<img src='<%=avatarUrl%>'><div class='message'><%=message%></div>"),
 
@@ -101,6 +115,21 @@ pulse.Row = Backbone.Model.extend({
     }
 });
 
-pulse.RowCollection = Backbone.Collection.extend({
-    "model":pulse.Row
+pulse.Item = Backbone.Model.extend({
+    
+    defaults: function() {
+        
+        return {
+        type: "sign",
+        votes: 0,
+        word: "none",
+        url: "/static/img/users/default.png",
+        name: "drewww",
+        avatarUrl: "/static/img/users/default.png",
+        };
+    }
+});
+
+pulse.PulseCollection = Backbone.Collection.extend({
+    "model":pulse.Item
 });

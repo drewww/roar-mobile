@@ -10,7 +10,7 @@ client.ConnectionManager.prototype = {
     socket: null,
     sectionEvents: new model.SectionEventCollection(),
     sectionName: null,
-    rows: new pulse.RowCollection(),
+    items: new pulse.PulseCollection(),
     
     
     connect: function(host, port) {
@@ -97,7 +97,6 @@ client.ConnectionManager.prototype = {
                 
                 // so the structure for a pulse message is:
                 // some set of N items with a type and a payload.
-                var row = new pulse.Row();
                 
                 for(var i in data["items"]) {
                     var item = data["items"][i];
@@ -105,19 +104,17 @@ client.ConnectionManager.prototype = {
                     
                     switch(item.type) {
                         case "chat":
-                            row.addItem(new model.Chat(item));
+                            this.items.add(new model.Chat(item));
                             break;
                         case "sign":
-                            row.addItem(new pulse.Sign(item));
+                            this.items.add(new pulse.Sign(item));
                             break;
                         case "word":
-                            row.addItem(new pulse.Word(item));
+                            this.items.add(new pulse.Word(item));
                             break;
                     }
                     
                 }
-                
-                this.rows.add(row);
                 
                 break;
                 

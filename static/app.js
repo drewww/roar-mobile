@@ -87,7 +87,7 @@ views.MainView = Backbone.View.extend({
   initialize: function(conn) {
     views.conn = conn;
     this.section = new views.SectionView();
-    this.pulse = new pulse.PulseView({collection:conn.rows});
+    this.pulse = new pulse.PulseView({collection:conn.items});
   },
   
   template: _.template(""),
