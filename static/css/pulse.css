@@ -54,6 +54,12 @@
     border: 1px solid black;
 }
 
+#pulse-container {
+    position: absolute !important;
+    bottom: 0px !important;
+    width: 100%;
+}
+
 /**** Isotope Filtering ****/
 
 .isotope-item {
