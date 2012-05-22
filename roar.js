@@ -218,8 +218,23 @@ io.sockets.on('connection', function(socket) {
     });
     
     socket.on("sign-create", function(b64) {
-      var name = 'static/img/signs/'+Date.now()+'.png';
-      fs.writeFile(name, new Buffer(b64.match(/,(.+)/)[1], 'base64'));
+      socket.get("identity", function(err, userName) {
+        socket.get("room", function(err, roomName) {
+          var url = 'static/img/signs/'+Date.now()+'.png';
+          fs.writeFile(url, new Buffer(b64.match(/,(.+)/)[1], 'base64'), function(err) {
+            var newSign = new server_model.ServerItem({
+              type:"sign",
+              name:userName,
+              timestamp:new Date().getTime(),
+              avatarUrl:getProfileURLForName(userName),
+              url:url
+            });
+            io.sockets.in("room:" + roomName).emit("section",newSign.toJSON());
+            sectionItems.add(newSign);
+            logger.info("(" + roomName + ", " + newSign.id +") " + newSign.get("name") + ": " + newSign.get("url"));
+          });              
+        });
+      });
     });
 });
 
