@@ -214,6 +214,11 @@ io.sockets.on('connection', function(socket) {
             
         });
     });
+    
+    socket.on("sign-create", function(b64) {
+      var name = 'static/img/signs/'+Date.now()+'.png';
+      fs.writeFile(name, new Buffer(b64.match(/,(.+)/)[1], 'base64'));
+    });
 });
 
 // periodically publish pulse data.

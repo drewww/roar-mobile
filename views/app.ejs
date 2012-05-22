@@ -56,7 +56,7 @@
       load_view = new views.LoadView(conn);
       $("body").append(load_view.render().el);
       
-      // Used to prevent scrolling while drawing
+      // Used to prevent scrolling
       document.body.addEventListener('touchmove', function(event) {
         event.preventDefault();
       }, false); 
