@@ -229,12 +229,26 @@ views.SignCreateView = Backbone.View.extend({
   events: {
     'touchmove #sign-canvas':'touchMove',
     'touchstart #clear-button':'clear',
+    'touchstart .color-button':'setColor',
+    'touchstart .width-button':'setWidth',
     'touchstart #submit-button':'submit'
   },
   
   template: _.template("<canvas id='sign-canvas' width='960' height='540'></canvas><hr /> \
   <div id='sign-menu'> \
     <button id='clear-button' class='sign-button'>Clear</button> \
+    <span id='colors'> \
+      <button style='background-color:#000000;' data-color='#000000' class='color-button'>&nbsp;&nbsp;&nbsp;</button> \
+      <button style='background-color:#69D2E7;' data-color='#69D2E7' class='color-button'>&nbsp;&nbsp;&nbsp;</button> \
+      <button style='background-color:#FA6900;' data-color='#FA6900' class='color-button'>&nbsp;&nbsp;&nbsp;</button> \
+      <button style='background-color:#542437;' data-color='#542437' class='color-button'>&nbsp;&nbsp;&nbsp;</button> \
+      <button style='background-color:#F8CA00;' data-color='#F8CA00' class='color-button'>&nbsp;&nbsp;&nbsp;</button> \
+      <button style='background-color:#8A9B0F;' data-color='#8A9B0F' class='color-button'>&nbsp;&nbsp;&nbsp;</button> \
+    </span> \
+    <span id='widths'> \
+      <button style='font-size:10px;' data-width='10' class='width-button'>•</button> \
+      <button style='font-size:20px;' data-width='25' class='width-button'>•</button> \
+    </span> \
     <button id='submit-button' class='sign-button'>Submit</button> \
   </div>"),
   
@@ -244,7 +258,9 @@ views.SignCreateView = Backbone.View.extend({
     for (var i = 0; i < event.originalEvent.touches.length; i++) {
       var touch = event.originalEvent.touches[i];
       ctx.beginPath();
-      ctx.arc(touch.pageX-50, touch.pageY-50, 10, 0, 2*Math.PI, true);
+      ctx.arc(touch.pageX-50, touch.pageY-50, this.currentWidth, 0, 2*Math.PI, true);
+      ctx.strokeStyle = this.currentColor;
+      ctx.fillStyle = this.currentColor;
       ctx.fill();
       ctx.stroke();
     }
@@ -252,6 +268,14 @@ views.SignCreateView = Backbone.View.extend({
   
   clear: function(event) {
     this.$("#sign-canvas")[0].width = 960;
+  },
+  
+  setColor: function(event) {
+    this.currentColor = $(event.target).data('color');
+  },
+  
+  setWidth: function(event) {
+    this.currentWidth = parseInt($(event.target).data('width'));
   },
   
   submit: function(event) {
@@ -263,6 +287,11 @@ views.SignCreateView = Backbone.View.extend({
     },1000);
     conn.socket.emit('sign', this.$('#sign-canvas')[0].toDataURL('image/png'));
   },  
+  
+  initialize: function() {
+    this.currentColor = '#000';
+    this.currentWidth = 10;
+  },
   
   render: function() {
     this.$el.html(this.template());
