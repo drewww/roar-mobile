@@ -19,26 +19,26 @@ views.SectionView = Backbone.View.extend({
         <li> \
           Friends \
           <ul> \
-            <li data-icon='contacts'><a class='section-link'>MIT <img class='friends' src='/static/img/users/drew.jpeg' /><img class='friends' src='/static/img/users/mark.jpeg'></a></li> \
-            <li data-icon='contacts'><a class='section-link'>Reddit</a></li> \
-            <li data-icon='contacts'><a class='section-link'>4chan</a></li> \
+            <li data-icon='contacts'><a class='section-link' data-name='MIT'><span class='population'>12</span> MIT <img class='friends' src='/static/img/users/drew.jpeg' /><img class='friends' src='/static/img/users/mark.jpeg' /></a></li> \
+            <li data-icon='contacts'><a class='section-link' data-name='Reddit'><span class='population'>15</span> Reddit <img class='friends' src='/static/img/users/drew.jpeg' /></a></li> \
+            <li data-icon='contacts'><a class='section-link' data-name='4chan'><span class='population'>23</span> 4chan <img class='friends' src='/static/img/users/mark.jpeg'></a></li> \
           </ul> \
         </li> \
         <li> \
           Popular \
           <ul> \
-            <li data-icon='toprated'><a class='section-link'>Boston</a></li> \
-            <li data-icon='toprated'><a class='section-link'>Ottawa</a></li> \
-            <li data-icon='toprated'><a class='section-link'>San Francisco</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='Boston'><span class='population'>563</span> Boston</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='MLB Playoffs'><span class='population'>342</span> MLB Playoffs</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='Mad Men'><span class='population'>111</span> Mad Men</a></li> \
           </ul> \
         </li> \
       </ul> \
     </div> \
-  <div style='display:none;' id='events-list'></div><form style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
+  <div style='display:none;' id='events-list'></div><form id='post' style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
   
   events: {
     'submit #creation':'createSection',
-    'submit form':'post',
+    'submit #post':'post',
     'click #status':'showSections',
     'click .tw-login':'twLogin',
     'click .fb-login':'fbLogin',
@@ -58,6 +58,8 @@ views.SectionView = Backbone.View.extend({
   },
   
   createSection: function(event) {
+    event.preventDefault();
+    
     conn.join(this.$('#create').val());
     this.$('#section-select').animate({
       top: '-=1000px'
@@ -89,7 +91,7 @@ views.SectionView = Backbone.View.extend({
   },
   
   setSection: function(event) {
-    conn.join($(event.target).text());
+    conn.join($(event.target).data('name'));
     this.$('#section-select').animate({
       top: '-=1000px'
     }, 2000);
