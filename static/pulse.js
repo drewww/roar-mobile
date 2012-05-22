@@ -48,7 +48,6 @@ pulse.PulseView = Backbone.View.extend({
         masonry: {
           columnWidth: 64
         },
-        animationEngine: "none",
         });
         
         return this;
@@ -104,7 +103,10 @@ pulse.TrendingWordView = Backbone.View.extend({
 pulse.TrendingChatView = Backbone.View.extend({
     className: "chat pulse-item",
 
-    template: _.template("<img src='<%=avatarUrl%>'><div class='message'><%=message%></div>"),
+    template: _.template("<img src='<%=avatarUrl%>'><div class='message'>\
+    <div class='openquote'>&ldquo;</div>\
+    <div class='contents'><%=message%></div>\
+    <div class='closequote'>&rdquo;</div><div></div>"),
 
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));

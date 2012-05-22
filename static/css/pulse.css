@@ -22,36 +22,70 @@
     
     border: 1px solid #666;
     
-    height: 65px;
-    width: 65px;
+    height: 130px;
+    width: 130px;
 }
 #pulse .sign img {
-    height: 65px;
-    width: 65px;
+    height: 130px;
+    width: 208px;
+    background-color: black;
 }
 
 #pulse .chat {
     width: 300px;
 }
 
+.openquote, .closequote {
+    position: absolute;
+    width: 10px;
+    font-size: 3em;
+    color: #ccc;
+}
+
+.openquote {
+
+    top: -5px;
+    left: 72px;
+}
+
+.closequote {
+    right: 34px;
+    bottom: -20px;
+}
+
+.contents {
+    width: 200px;
+    margin-left: 18px;
+}
+
+
+
 #pulse .chat .message {
     width: 200px;
+    height: 59px;
+    background-color: white;
+    float: left;
+    padding: 3px;
+    border: 1px solid #555;
 }
 
 #pulse .chat img {
     height: 65px;
     width: 65px;
     float: left;
+    margin-right: 5px;
 }
 
 #pulse .word {
     width: 75px;
+    height: 35px;
     font-size: 2em;
     font-weight: bold;
 }
 
 .pulse-item {
-    border: 1px solid black;
+/*    border: 1px solid black;*/
+    margin: 5px;
 }
 
 #pulse-container {

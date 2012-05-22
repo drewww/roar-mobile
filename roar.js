@@ -172,13 +172,13 @@ io.sockets.on('connection', function(socket) {
 
 var baseItems = [
 {"type":"chat", "message":"This is a really sweet trending chat message",
-"avatarUrl":"/static/img/users/default.png", "name":"drewwww",
+"avatarUrl":"/static/img/users/mark.jpeg", "name":"marfay",
 "timestamp":new Date().getTime(), "votes":18},
-{"type":"sign", "url":"/static/img/users/default.png",
-"avatarUrl":"/static/img/users/default.png", "name":"drewwww",
+{"type":"sign", "url":"/static/img/users/mark.jpeg",
+"avatarUrl":"/static/img/users/mark.jpeg", "name":"drewwww",
 "timestamp":new Date().getTime(), "votes":423},
 {"type":"word", "word":"Jeter",
-"avatarUrl":"/static/img/users/default.png", "name":"drewwww",
+"avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
 "timestamp":new Date().getTime(), "votes":38}];
 
 function generatePulse() {
