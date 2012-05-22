@@ -37,8 +37,8 @@
   <!-- more tags for your 'head' to consider h5bp.com/d/head-Tips -->
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="/static/css/jqtouch.css">
   <link rel="stylesheet" href="/static/css/reset.css">
+  <link rel="stylesheet" href="/static/css/kendo.mobile.all.min.css">
   <link rel="stylesheet" href="/static/css/style.css">
 
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
@@ -59,12 +59,14 @@
 
       main_view = new views.MainView(conn);
       $("body").append(main_view.render().el);      
+      
+      window.kendoMobileApplication = new kendo.mobile.Application(document.body);
     };
   </script>
 
 
   <script src="/static/libs/jquery-1.7.2.min.js"></script>
-  <script src="/static/libs/jqtouch.js"></script>
+  <script src="/static/libs/kendo.mobile.min.js"></script>
   <script src="/static/libs/underscore-min.js"></script>
   <script src="/static/libs/backbone-min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
