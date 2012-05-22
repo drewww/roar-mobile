@@ -184,7 +184,7 @@ var baseItems = [
 function generatePulse() {
     
     // auto cycle
-    setTimeout(generatePulse, 1000);
+    setTimeout(generatePulse, 10000);
 
     console.log("PULSING");
     io.sockets.emit("pulse", {items:baseItems});
