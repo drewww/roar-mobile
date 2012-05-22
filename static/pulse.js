@@ -27,6 +27,7 @@ pulse.PulseView = Backbone.View.extend({
 
     },
     
+    touchStartTime: 0,
     
     initialize: function(args) {
         Backbone.Model.prototype.initialize.call(this, args);
@@ -52,13 +53,39 @@ pulse.PulseView = Backbone.View.extend({
     },
     
     startTouch: function(event) {
-        $(event.target).addClass("touched")
+        // move up the reference chain until we hit the pulse-item.
+        var target = $(event.target);
+        while(!target.hasClass("pulse-item")) {
+            target = target.parent();
+        }
+
+
+        $(target).addClass("touched");
         console.log("start touch");
+        
+        this.touchStartTime = new Date().getTime();
     },
 
     endTouch: function(event) {
-        $(event.target).removeClass("touched")
-        console.log("end touch");
+        if(this.touchStartTime==0) return;
+
+        // move up the reference chain until we hit the pulse-item.
+        var target = $(event.target);
+        while(!target.hasClass("pulse-item")) {
+            target = target.parent();
+        }
+        
+        
+        $(target).removeClass("touched");
+        console.log("end touch: ");
+        console.log(target);
+        
+        if(new Date().getTime() - this.touchStartTime > 1000) {
+            // vote on that baby.
+            conn.vote(target.attr("item-id"));
+        }
+        
+        this.touchStartTime=0;
     },
 
     
@@ -117,6 +144,7 @@ pulse.SignView = Backbone.View.extend({
    
    render: function() {
        this.$el.html(this.template(this.model.toJSON()));
+       this.$el.attr("item-id", this.model.id);
        return this;
    }
 });
@@ -128,6 +156,8 @@ pulse.TrendingWordView = Backbone.View.extend({
    
    render: function() {
        this.$el.html(this.template(this.model.toJSON()));
+       this.$el.attr("item-id", this.model.id);
+
        return this;
    }
 });
@@ -142,6 +172,8 @@ pulse.TrendingChatView = Backbone.View.extend({
 
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
+        this.$el.attr("item-id", this.model.id);
+
         return this;
     }
 });

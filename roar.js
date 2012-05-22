@@ -151,8 +151,12 @@ io.sockets.on('connection', function(socket) {
     
     socket.on("vote", function(data) {
         socket.get("identity", function(err, userName) {
-            var sectionEvent = sectionItems.get(data["id"]);
             
+            logger.info("id: " + data["id"] + "; server_model.items.length: " + server_model.items.length);
+            var sectionEvent = server_model.items[data["id"]];
+            
+            
+            logger.info("id: " + data["id"] + " itemId: " + sectionEvent.id);
             sectionEvent.addVote();
             
             io.sockets.emit("vote", {id:data["id"]});
