@@ -55,6 +55,9 @@ views.SectionView = Backbone.View.extend({
      this.$('.chat-event:last').fadeIn('fast');
      this.$('#events-list').scrollTop(Math.pow(2,30));
     }, this);
+    views.conn.sectionEvents.on('reset', function(m, c) {
+        this.$("#events-list").empty();
+    }, this);
   },
   
   createSection: function(event) {
