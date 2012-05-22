@@ -59,8 +59,8 @@ views.SectionView = Backbone.View.extend({
         this.$("#events-list").empty();
     }, this);
     
-    conn.on('message.population', function() {
-        this.$("h2").text(conn.population + " people");
+    conn.on('message.population', function(arg) {
+        this.$("h2").text(arg["population"] + " people");
     }, this);
     
     // Simulate real-time population changes

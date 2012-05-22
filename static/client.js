@@ -123,6 +123,7 @@ client.ConnectionManager.prototype = {
                 
                 break;
             case "population":
+                console.log("message: " + JSON.stringify(data));
                 console.log("POPULATION: " + arg["population"]);
                 this.population = arg["population"];
                 // this.trigger("population");

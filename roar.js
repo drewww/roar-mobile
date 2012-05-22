@@ -109,14 +109,10 @@ io.sockets.on('connection', function(socket) {
         socket.get("identity", function(err, userName) {
             socket.get("room", function(err, currentRoom) {
             
-            if(!_.isNull(currentRoom) && !_.isUndefined(currentRoom)) {
+            console.log("currentRoom: " + currentRoom);
+            if(!_.isNull(currentRoom) && !_.isUndefined(currentRoom) && currentRoom!="null") {
                 // if it's valid, then leave it.
-                socket.leave("room:" + currentRoom);
-                logger.info(userName + " leaving " + currentRoom);
-                
-                roomPopulations[currentRoom] = roomPopulations[currentRoom]-1;
-                io.sockets.in("room:" + currentRoom).emit("population", roomPopulations[data["room"]]);
-                io.sockets.in("room:" + currentRoom).emit("chat", {"admin":true, "message":userName + " has left the section."});
+                leaveRoom(currentRoom, socket);
             }
             
             // join the socket to the room.
@@ -136,6 +132,9 @@ io.sockets.on('connection', function(socket) {
                 io.sockets.in("room:" + data["room"]).emit("population", {"population":roomPopulations[data["room"]]});
             }
             
+            
+            logger.info("pops: " + JSON.stringify(roomPopulations));
+            
             io.sockets.in("room:" + data["room"]).emit("chat", {"admin":true, "message":userName + " has joined the section."});
             
             
@@ -145,9 +144,7 @@ io.sockets.on('connection', function(socket) {
     
     socket.on("leave", function(data) {
         socket.get("identity", function(err, userName) {
-            socket.leave("room:" + data["room"]);
-            
-            logger.info(userName + " leaving " + data["room"]);
+            leaveRoom(data["room"], socket);
         });
     });
     
@@ -173,10 +170,11 @@ io.sockets.on('connection', function(socket) {
     
     socket.on("disconnect", function(data) {
         socket.get("identity", function(err, userName) {
-            
-            
-            
-            
+            socket.get("room", function(err, roomName) {
+                // pull them out of their room.
+                leaveRoom(roomName, socket);
+                
+            });
         });
     });
 });
@@ -194,12 +192,34 @@ var baseItems = [
 "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
 "timestamp":new Date().getTime(), "votes":38}];
 
+
+function leaveRoom(roomName, socket) {
+    
+    socket.leave("room:" + roomName);
+    
+    logger.info("pop pre: " + JSON.stringify(roomPopulations));
+    roomPopulations[roomName] = roomPopulations[roomName]-1;
+    logger.info("pop post: " + JSON.stringify(roomPopulations));
+    logger.info("roomPop: " + roomPopulations[roomName]);
+
+    io.sockets.in("room:" + roomName).emit("population", {"population":roomPopulations[roomName]});
+    
+    socket.get("identity", function(err, userName) {
+        logger.info(userName + " leaving " + roomName);
+        io.sockets.in("room:" + roomName).emit("chat", {"admin":true, "message":userName + " has left the section."});
+    });
+}
+
+function joinRoom(roomName, socket) {
+    
+}
+
 function generatePulse() {
     
     // auto cycle
     setTimeout(generatePulse, 10000);
 
-    console.log("PULSING");
+    logger.info("PULSING");
     io.sockets.emit("pulse", {items:baseItems});
 }
 
