@@ -19,6 +19,15 @@ pulse.PulseView = Backbone.View.extend({
     
     template: _.template("<div id='pulse-container'></div>"),
     
+    events: {
+        'mousedown  .pulse-item':'startTouch',
+        'touchstart .pulse-item':'startTouch',
+        'mouseup  .pulse-item':'endTouch',
+        'touchend .pulse-item':'endTouch',
+
+    },
+    
+    
     initialize: function(args) {
         Backbone.Model.prototype.initialize.call(this, args);
         // console.log("INITIALZING PULSE VIEW");
@@ -34,7 +43,6 @@ pulse.PulseView = Backbone.View.extend({
                 newView = new pulse.TrendingChatView({"model":item}).render().el;
             }
             
-
             if(!this.checkForInvisibleItems()) {
                 this.$("#pulse-container").isotope( 'insert', $(newView));                
             }
@@ -42,6 +50,17 @@ pulse.PulseView = Backbone.View.extend({
             
         }, this);
     },
+    
+    startTouch: function(event) {
+        $(event.target).addClass("touched")
+        console.log("start touch");
+    },
+
+    endTouch: function(event) {
+        $(event.target).removeClass("touched")
+        console.log("end touch");
+    },
+
     
     checkForInvisibleItems: function() {
         $.each($(".pulse-item"), function(key, value) {
