@@ -34,7 +34,7 @@ views.SectionView = Backbone.View.extend({
         </li> \
       </ul> \
     </div> \
-  <div style='height:90%;overflow-y:scroll;'><div style='display:none;' id='events-list'></div></div><form id='post' style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
+  <div style='display:none;' id='events-list'></div><form id='post' style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
   
   events: {
     'submit #creation':'createSection',
@@ -137,7 +137,7 @@ views.SectionView = Backbone.View.extend({
 views.ChatView = Backbone.View.extend({
   className: 'chat-event',
   
-  template:  _.template("<img class='profile' src='<%=avatarUrl%>' /><p class='text'><%=message%></p><br class='clear'>"),
+  template:  _.template("<img class='profile' src='<%=avatarUrl%>' /><p class='text'><%=message%></p><br class='clear' />"),
   adminTemplate: _.template("<p class='text'><%=message%></p>"),
   
   render: function() {
