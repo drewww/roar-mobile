@@ -20,10 +20,10 @@ pulse.PulseView = Backbone.View.extend({
     template: _.template("<div id='pulse-container'></div>"),
     
     events: {
-        'mousedown  .pulse-item':'startTouch',
-        'touchstart .pulse-item':'startTouch',
-        'mouseup  .pulse-item':'endTouch',
-        'touchend .pulse-item':'endTouch',
+        'mousedown  .chat, .sign':'startTouch',
+        'touchstart .chat, .sign':'startTouch',
+        'mouseup  .chat, .sign':'endTouch',
+        'touchend .chat, .sign':'endTouch',
 
     },
     
