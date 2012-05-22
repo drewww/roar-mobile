@@ -107,7 +107,7 @@ function getRandomProfileURL() {
     "48801_930412_163473879_q.jpg",
     "572367_518786953_429537474_q.jpg"];
 
-    return "/static/img/users/" + randomProfileImages[Math.floor(Math.random(randomProfileImages.length))];
+    return "/static/img/users/" + randomProfileImages[Math.floor(Math.random()*randomProfileImages.length)];
 }
 
 
