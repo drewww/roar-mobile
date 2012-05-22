@@ -81,7 +81,7 @@ pulse.PulseView = Backbone.View.extend({
 pulse.SignView = Backbone.View.extend({
    className: "sign pulse-item",
    
-   template: _.template("<img src='<%=url%>'>"),
+   template: _.template("<img src='<%=url%>'><div class='votes'><%=votes%></div>"),
    
    render: function() {
        this.$el.html(this.template(this.model.toJSON()));
@@ -106,7 +106,7 @@ pulse.TrendingChatView = Backbone.View.extend({
     template: _.template("<img src='<%=avatarUrl%>'><div class='message'>\
     <div class='openquote'>&ldquo;</div>\
     <div class='contents'><%=message%></div>\
-    <div class='closequote'>&rdquo;</div><div></div>"),
+    <div class='closequote'>&rdquo;</div><div class='votes'><%=votes%></div></div>"),
 
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
