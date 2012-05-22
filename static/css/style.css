@@ -9,8 +9,9 @@ div#section {
 }
 
 div#status {
+  z-index: 50;
   background-color: rgba(242,250,178,1.0);
-  height: 5%;
+  height: 30px;
 }
 
 div#status h1 {
@@ -28,7 +29,9 @@ div#status h2 {
 }
 
 div#section-select {
-  margin-top: 20px;
+  z-index: 1;
+  position: absolute;
+  top: 30px;
   height: 80%;
 }
 
@@ -46,9 +49,9 @@ div#section-select input#search {
   font-size: 20px;  
 }
 
-div#events-list {  
-  padding: 10px;
+div#events-list { 
   height: 80%;
+  width: 100%;
   overflow-y: auto;
   
   box-shadow: -1px 5px 20px -5px #666;
