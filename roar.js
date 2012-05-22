@@ -69,7 +69,7 @@ generatePulse();
 // setup the state management code
 
 // hash of sectionName -> ServerEventsCollection.
-var sectionEvents = new model.SectionEventCollection();
+var sectionItems = new model.SectionEventCollection();
 
 var roomPopulations = {};
 
@@ -88,16 +88,17 @@ io.sockets.on('connection', function(socket) {
         socket.get("identity", function(err, userName) {
             socket.get("room", function(err, roomName) {
                 
-                var newChat = new server_model.ServerChat({name:userName, timestamp:new Date().getTime(),
+                var newChat = new server_model.ServerItem({type:"chat",
+                name:userName, timestamp:new Date().getTime(),
                 message:data["message"],
                 avatarUrl:"/static/img/users/mark.jpeg"});
                 
                 // var newChat = new server_model.ServerChat();
                 
-                io.sockets.in("room:" + roomName).emit("chat",
+                io.sockets.in("room:" + roomName).emit("section",
                     newChat.toJSON());
                 
-                sectionEvents.add(newChat);
+                sectionItems.add(newChat);
                 
                 logger.info("(" + roomName + ", " + newChat.id +") " + newChat.get("name") + ": " + newChat.get("message"));                
                 
@@ -135,8 +136,7 @@ io.sockets.on('connection', function(socket) {
             
             logger.info("pops: " + JSON.stringify(roomPopulations));
             
-            io.sockets.in("room:" + data["room"]).emit("chat", {"admin":true, "message":"<b>"+userName + "</b> has joined the section."});
-            
+            io.sockets.in("room:" + data["room"]).emit("chat", {"type":"chat", "admin":true, "message":"<b>"+userName + "</b> has joined the section."});
             
             });
         });
@@ -150,7 +150,7 @@ io.sockets.on('connection', function(socket) {
     
     socket.on("vote", function(data) {
         socket.get("identity", function(err, userName) {
-            var sectionEvent = sectionEvents.get(data["id"]);
+            var sectionEvent = sectionItems.get(data["id"]);
             
             sectionEvent.addVote();
             
@@ -162,7 +162,7 @@ io.sockets.on('connection', function(socket) {
     socket.on("poll-vote", function(data) {
         socket.get("identity", function(err, userName) {
             socket.get("room", function(err, roomName) {
-                var poll = sectionEvents.get(data["pollId"]);
+                var poll = sectionItems.get(data["pollId"]);
                 poll.addVote(roomName, "/static/img/users/default.png", data["index"]);
             });
         });
@@ -206,7 +206,7 @@ function leaveRoom(roomName, socket) {
     
     socket.get("identity", function(err, userName) {
         logger.info(userName + " leaving " + roomName);
-        io.sockets.in("room:" + roomName).emit("chat", {"admin":true, "message":userName + " has left the section."});
+        io.sockets.in("room:" + roomName).emit("section", {"type":"chat", "admin":true, "message":"<b>"+userName + "</b> has left the section."});
     });
 }
 

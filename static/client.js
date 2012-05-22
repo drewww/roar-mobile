@@ -8,7 +8,7 @@ client.ConnectionManager.prototype = {
     
     user: null,
     socket: null,
-    sectionEvents: new model.SectionEventCollection(),
+    sectionItems: new pulse.PulseCollection(),
     sectionName: null,
     items: new pulse.PulseCollection(),
     population: 0,
@@ -29,7 +29,7 @@ client.ConnectionManager.prototype = {
         // anything else to do on connect? probably not.
         // socket.on("chat", )
         
-        this.registerSocketListener("chat");
+        this.registerSocketListener("section");
         this.registerSocketListener("identify-ok");
         this.registerSocketListener("vote");
         this.registerSocketListener("poll");
@@ -56,9 +56,9 @@ client.ConnectionManager.prototype = {
         var arg = data;
         
         switch(type) {
-            case "chat":
-                var newChat = new model.Chat(data);
-                this.sectionEvents.add(newChat);
+            case "section":
+                var newChat = new pulse.Item(data);
+                this.sectionItems.add(newChat);
                 console.log("CHAT: " + JSON.stringify(newChat));
                 break;
             case "chat-ok":
@@ -66,14 +66,14 @@ client.ConnectionManager.prototype = {
             
             case "poll":
                 var newPoll = new model.Poll(data);
-                this.sectionEvents.add(newPoll);
+                this.sectionItems.add(newPoll);
                 
                 console.log("POLL: " + JSON.stringify(newPoll));
                 
                 break;
                 
             case "vote":
-                var sectionEvent = this.sectionEvents.get(data["id"]);
+                var sectionEvent = this.sectionItems.get(data["id"]);
                 
                 if(!_.isUndefined(sectionEvent)) {
                     sectionEvent.addVote();
@@ -82,7 +82,7 @@ client.ConnectionManager.prototype = {
                 console.log("VOTE: " + JSON.stringify(data));
                 break;
             case "poll-vote":
-                var sectionEvent = this.sectionEvents.get(data["id"]);
+                var sectionEvent = this.sectionItems.get(data["id"]);
                 
                 if(!_.isUndefined(sectionEvent)) {
                     sectionEvent.addVote(data);
@@ -94,7 +94,7 @@ client.ConnectionManager.prototype = {
             case "join-ok":
                 console.log("JOIN OKAY! " + data["room"]);
                 this.sectionName = data["room"];
-                this.sectionEvents.reset();
+                this.sectionItems.reset();
                 break;
             
             case "pulse":
