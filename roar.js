@@ -201,12 +201,17 @@ io.sockets.on('connection', function(socket) {
             var voterUrl = "/static/img/users/default.png";
             
             poll.addSectionVote(data["index"], voterUrl);
-            // poll.addGlobalVote(data["index"], 10);
+            poll.addGlobalVote(data["index"], 1);
             
             // now broadcast this out to everyone.
             io.sockets.emit("poll-vote", {type:"section",
                 "pollId":data["pollId"], "url":voterUrl,
                 "index":data["index"]});
+                
+            io.sockets.emit("poll-vote", {type:"global",
+                "pollId":data["pollId"], "num":1,
+                "index":data["index"]});
+            
         });
     });
 });

@@ -106,7 +106,7 @@ client.ConnectionManager.prototype = {
                         console.log("ADDED SECTION VOTE: " + JSON.stringify(data));
                         break;
                     case "global":
-                        pollItem.addGlobalVote(data["index"], 13);
+                        pollItem.addGlobalVote(data["index"], data["num"]);
                         break;
                 }
                 break;
