@@ -3,7 +3,7 @@ views = {}
 views.SectionView = Backbone.View.extend({  
   id: 'section',
   
-  template: _.template("<div id='status'><h1></h1><h2>2 people</h2></div> \
+  template: _.template("<div id='status'><h1></h1><h2></h2></div> \
     <div id='section-select' data-role='view' data-title='Sections'> \
       <div id='login' style='width:410px;margin-left:auto;margin-right:auto;'> \
         <img class='tw-login' src='/static/img/tw-logo.png' width='200' /> \
@@ -57,6 +57,10 @@ views.SectionView = Backbone.View.extend({
     }, this);
     views.conn.sectionEvents.on('reset', function(m, c) {
         this.$("#events-list").empty();
+    }, this);
+    
+    conn.on('message.population', function() {
+        this.$("h2").text(conn.population + " people");
     }, this);
     
     // Simulate real-time population changes

@@ -11,6 +11,7 @@ client.ConnectionManager.prototype = {
     sectionEvents: new model.SectionEventCollection(),
     sectionName: null,
     items: new pulse.PulseCollection(),
+    population: 0,
     
     
     connect: function(host, port) {
@@ -36,6 +37,9 @@ client.ConnectionManager.prototype = {
         this.registerSocketListener("leave-ok");
 
         this.registerSocketListener("pulse");
+
+        this.registerSocketListener("population");
+
     },
     
     registerSocketListener: function(type) {
@@ -118,7 +122,11 @@ client.ConnectionManager.prototype = {
                 }
                 
                 break;
-                
+            case "population":
+                console.log("POPULATION: " + arg["population"]);
+                this.population = arg["population"];
+                // this.trigger("population");
+                break;
             case "identity-ok":
                 console.log("identity okay!");
                 this.user = arg["name"];

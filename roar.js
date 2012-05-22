@@ -71,6 +71,8 @@ generatePulse();
 // hash of sectionName -> ServerEventsCollection.
 var sectionEvents = new model.SectionEventCollection();
 
+var roomPopulations = {};
+
 io.sockets.on('connection', function(socket) {
     // console.log("connection: " + socket);
     logger.info("Received connection: " + socket.id);
@@ -111,6 +113,9 @@ io.sockets.on('connection', function(socket) {
                 // if it's valid, then leave it.
                 socket.leave("room:" + currentRoom);
                 logger.info(userName + " leaving " + currentRoom);
+                
+                roomPopulations[currentRoom] = roomPopulations[currentRoom]-1;
+                io.sockets.in("room:" + data["room"]).emit("population", roomPopulations[data["room"]]);
             }
             
             // join the socket to the room.
@@ -120,10 +125,14 @@ io.sockets.on('connection', function(socket) {
             
             socket.emit("join-ok", {"room":data["room"]});
             
-            if(_.isUndefined(sectionEvents[data["room"]])) {
+            if(_.isUndefined(roomPopulations[data["room"]])) {
                 console.log("(" + data["room"] + ") " + "section has never been joined before!")
                 
-                // sectionEvents[data["room"]] = new model.SectionEventCollection();
+                roomPopulations[data["room"]] = 1;
+                io.sockets.in("room:" + data["room"]).emit("population", {"population":roomPopulations[data["room"]]});
+            } else {
+                roomPopulations[data["room"]] = roomPopulations[data["room"]]+1;
+                io.sockets.in("room:" + data["room"]).emit("population", {"population":roomPopulations[data["room"]]});
             }
             
             });
