@@ -74,25 +74,25 @@ div#events-list .chat-event {
   border-radius: 3px;
   -webkit-border-radius: 3px;
   
-  padding: 5px;
-  margin-bottom: 10px;
-  
-  background-color: rgba(242,250,178,0.8);
-  border: 1px solid #666;
-  
-  min-height: 90px;
+  margin-bottom: 2px;
+  height: 34px;
+  width: 100%;
+/*  border: 1px solid #666;*/
+}
+
+.clear {
+    clear: both;
 }
 
 div#events-list .chat-event .profile {
   float: left;
-  width: 25%;
-  padding-right: 10px;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
 }
 
 div#events-list .chat-event .text {
-  margin-top: 0px
+  margin-top: 5px
 }
 
 
