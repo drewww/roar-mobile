@@ -63,8 +63,10 @@ views.SectionView = Backbone.View.extend({
     setInterval(function() {
      var $elem1 = $(this.$('.population')[Math.floor(Math.random() * 6)]);
      $elem1.text(parseInt($elem1.text())+Math.floor(Math.random()*5));
+     if (parseInt($elem1.text()) < 0) $elem1.text(5);
      var $elem2 = $(this.$('.population')[Math.floor(Math.random() * 6)]);
      $elem2.text(parseInt($elem2.text())-Math.floor(Math.random()*5));
+     if (parseInt($elem2.text()) < 0) $elem2.text(5);
     },500);
   },
   
