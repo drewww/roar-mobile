@@ -246,3 +246,51 @@ div#sign-create #sign-menu #submit-button {
   background-color: rgba(255,51,0,0.5);
   font-size: 24px;
 }
+
+div#load-view {
+  width: 840px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+}
+
+div#load-view #loader-view {
+  margin-top: 100px;
+  padding: 10px;
+  font-size: 34px;
+  text-align: center;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  
+  animation-name: loader;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  
+  -webkit-animation-name: loader;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+}
+
+@keyframes loader {
+  from {
+    background-color: #FFF;
+    color: #000;
+  }
+  to {
+    background-color: #000;;
+    color: #FFF;
+  }
+}
+
+@-webkit-keyframes loader {
+  from {
+    background-color: #FFF;
+    color: #000;
+  }
+  to {
+    background-color: #000;
+    color: #FFF;
+  }
+}

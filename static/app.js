@@ -248,10 +248,9 @@ views.SignCreateView = Backbone.View.extend({
 views.MainView = Backbone.View.extend({
   id: 'main',
   
-  initialize: function(conn) {
-    views.conn = conn;
+  initialize: function() {
     this.section = new views.SectionView();
-    this.pulse = new pulse.PulseView({collection:conn.items});
+    this.pulse = new pulse.PulseView({collection:views.conn.items});
   },
   
   template: _.template(""),
@@ -268,9 +267,27 @@ views.MainView = Backbone.View.extend({
 views.LoadView = Backbone.View.extend({
   id: 'load-view',
   
-  template: _.template(""),
+  events: {
+    'touchstart':'loadMain'
+  },
+  
+  template: _.template("<img id='roar-icon' src='/static/img/roar-wall.png' /><div id='loader-view'>Identifying TV Show...</div>"),
+  
+  loadMain: function(event) {
+    main_view = new views.MainView();
+    this.$el.fadeOut(function() {
+      $(this).remove();
+      $("body").append(main_view.render().el);
+      window.kendoMobileApplication = new kendo.mobile.Application(document.body);  // Initialize Kendo ListView
+    });
+  },
+  
+  initialize: function(conn) {
+    views.conn = conn;
+  },
   
   render: function() {
-    
+    this.$el.html(this.template());
+    return this;
   }
 })
