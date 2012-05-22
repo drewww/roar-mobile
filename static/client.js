@@ -155,6 +155,10 @@ client.ConnectionManager.prototype = {
     
     join: function(roomName) {
         this.socket.emit("join", {"room":roomName});
+    },
+    
+    votePoll: function(pollId, btnIndex) {
+        console.log("POLLID: " + pollId + "; btn: " + btnIndex);
     }
 }
 

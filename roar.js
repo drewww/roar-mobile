@@ -187,9 +187,10 @@ io.sockets.on('connection', function(socket) {
         
         logger.info("STARTING POLL");
         
-        io.sockets.emit("section", {"type":"poll", "message":"this is a poll about which color is the best",
+        var newPoll = new server_model.ServerItem({"type":"poll", "message":"this is a poll about which color is the best",
         "options":["red", "blue"]});
         
+        io.sockets.emit("section", newPoll);
     });
 });
 
