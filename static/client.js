@@ -73,10 +73,10 @@ client.ConnectionManager.prototype = {
                 break;
                 
             case "vote":
-                var sectionEvent = this.sectionItems.get(data["id"]);
+                var pulseItem = this.items.get(data["id"]);
                 
-                if(!_.isUndefined(sectionEvent)) {
-                    sectionEvent.addVote();
+                if(!_.isUndefined(pulseItem)) {
+                    pulseItem.addVote();
                 }
                 
                 console.log("VOTE: " + JSON.stringify(data));

@@ -142,6 +142,14 @@ pulse.SignView = Backbone.View.extend({
    
    template: _.template("<img src='<%=url%>'><div class='votes'><%=votes%></div>"),
    
+   initialize: function(args) {
+       Backbone.View.prototype.initialize.call(this, args);
+       
+       this.model.on("change:votes", function() {
+           this.$(".votes").text(this.model.get("votes"));
+       }, this);
+   },
+   
    render: function() {
        this.$el.html(this.template(this.model.toJSON()));
        this.$el.attr("item-id", this.model.id);
@@ -153,6 +161,15 @@ pulse.TrendingWordView = Backbone.View.extend({
    className: "word pulse-item",
    
    template: _.template("<%=word%>"),
+   
+   
+   initialize: function(args) {
+       Backbone.View.prototype.initialize.call(this, args);
+       
+       this.model.on("change:votes", function() {
+           this.$(".votes").text(this.model.get("votes"));
+       }, this);
+   },
    
    render: function() {
        this.$el.html(this.template(this.model.toJSON()));
@@ -170,6 +187,14 @@ pulse.TrendingChatView = Backbone.View.extend({
     <div class='contents'><%=message%></div>\
     <div class='closequote'>&rdquo;</div><div class='votes'><%=votes%></div></div>"),
 
+    initialize: function(args) {
+        Backbone.View.prototype.initialize.call(this, args);
+        
+        this.model.on("change:votes", function() {
+            this.$(".votes").text(this.model.get("votes"));
+        }, this);
+    },
+
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
         this.$el.attr("item-id", this.model.id);
@@ -182,6 +207,10 @@ pulse.Sign= Backbone.Model.extend({
     defaults: function() {
         return {"url":"/static/img/users/default.png",
                 "votes":0};
+    },
+    
+    addVote: function() {
+        this.set({"votes":this.get("votes")+1});
     }
 });
 
@@ -215,7 +244,12 @@ pulse.Item = Backbone.Model.extend({
         message: "the message",
         avatarUrl: "/static/img/users/default.png",
         };
+    },
+    
+    addVote: function() {
+        this.set({"votes":(this.get("votes")+1)});
     }
+    
 });
 
 pulse.PulseCollection = Backbone.Collection.extend({
