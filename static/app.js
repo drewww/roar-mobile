@@ -121,7 +121,7 @@ views.SectionView = Backbone.View.extend({
 views.ChatView = Backbone.View.extend({
   className: 'chat-event',
   
-  template:  _.template("<img class='profile' src='<%=avatarUrl%>' /><p class='text'><%=message%></p>"),
+  template:  _.template("<img class='profile' src='<%=avatarUrl%>' /><p class='text'><%=message%></p><br class='clear'>"),
   
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));

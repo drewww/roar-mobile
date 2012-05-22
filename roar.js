@@ -88,7 +88,7 @@ io.sockets.on('connection', function(socket) {
                 
                 var newChat = new server_model.ServerChat({name:userName, timestamp:new Date().getTime(),
                 message:data["message"],
-                avatarUrl:"/static/img/users/default.png"});
+                avatarUrl:"/static/img/users/mark.jpeg"});
                 
                 // var newChat = new server_model.ServerChat();
                 
