@@ -15,17 +15,17 @@ views.SectionView = Backbone.View.extend({
         <li> \
           Friends \
           <ul> \
-            <li data-icon='contacts'><a>MIT <img class='friends' src='/static/img/users/drew.jpeg' /><img class='friends' src='/static/img/users/mark.jpeg'></a></li> \
-            <li data-icon='contacts'><a>Reddit</a></li> \
-            <li data-icon='contacts'><a>4chan</a></li> \
+            <li data-icon='contacts'><a class='section-link'>MIT <img class='friends' src='/static/img/users/drew.jpeg' /><img class='friends' src='/static/img/users/mark.jpeg'></a></li> \
+            <li data-icon='contacts'><a class='section-link'>Reddit</a></li> \
+            <li data-icon='contacts'><a class='section-link'>4chan</a></li> \
           </ul> \
         </li> \
         <li> \
           Popular \
           <ul> \
-            <li data-icon='toprated'><a>Boston</a></li> \
-            <li data-icon='toprated'><a>Ottawa</a></li> \
-            <li data-icon='toprated'><a>San Francisco</a></li> \
+            <li data-icon='toprated'><a class='section-link'>Boston</a></li> \
+            <li data-icon='toprated'><a class='section-link'>Ottawa</a></li> \
+            <li data-icon='toprated'><a class='section-link'>San Francisco</a></li> \
           </ul> \
         </li> \
       </ul> \
@@ -33,7 +33,8 @@ views.SectionView = Backbone.View.extend({
   <div style='display:none;' id='events-list'></div><form style='display:none;'><input id='msg' type='text' placeholder='Enter message'></form>"),
   
   events: {
-    'submit form':'post'
+    'submit form':'post',
+    'click .section-link':'setSection'
   },
   
   initialize: function(params) {
@@ -52,6 +53,14 @@ views.SectionView = Backbone.View.extend({
     event.preventDefault();
     views.conn.chat($('#msg').val());
     $('#msg').val('').focus();
+  },
+  
+  setSection: function(event) {
+    conn.join($(event.target).text());
+    this.$('#section-select').animate({
+      top: '-=500px'
+    }, 1000);
+    this.$('#events-list,form').fadeIn();
   },
   
   render: function() {
