@@ -65,7 +65,7 @@ app.get('/test', function(req, res) {
     res.render('test.ejs', {layout:false, locals:{"host":host, "port":port}});
 });
 
-
+generatePulse();
 // setup the state management code
 
 // hash of sectionName -> ServerEventsCollection.
@@ -169,14 +169,25 @@ io.sockets.on('connection', function(socket) {
 });
 
 // periodically publish pulse data.
+
+var baseItems = [
+{"type":"chat", "message":"This is a really sweet trending chat message",
+"avatarUrl":"/static/img/users/default.png", "name":"drewwww",
+"timestamp":new Date().getTime(), "votes":18},
+{"type":"sign", "url":"/static/img/users/default.png",
+"avatarUrl":"/static/img/users/default.png", "name":"drewwww",
+"timestamp":new Date().getTime(), "votes":423},
+{"type":"wor", "word":"/static/img/users/default.png",
+"avatarUrl":"/static/img/users/default.png", "name":"drewwww",
+"timestamp":new Date().getTime(), "votes":38}];
+
 function generatePulse() {
     
     // auto cycle
     setTimeout(generatePulse, 10000);
 
     console.log("PULSING");
-    // io.sockets.emit("pulse", {items:});
-    
+    io.sockets.emit("pulse", {items:baseItems});
 }
 
 function publishPoll() {

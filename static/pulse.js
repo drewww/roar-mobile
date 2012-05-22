@@ -78,21 +78,29 @@ pulse.TrendingChatView = Backbone.View.extend({
     }
 });
 
-pulse.Sign= Backbone.View.extend({
+pulse.Sign= Backbone.Model.extend({
     defaults: function() {
         return {"url":"/static/img/users/default.png",
                 "votes":0};
     }
 });
 
-pulse.Word= Backbone.View.extend({
+pulse.Word= Backbone.Model.extend({
     defaults: function() {
         return {"word":"/static/img/users/default.png",
                 "votes":0};
     }
 });
 
-pulse.Row = Backbone.Collection.extend({});
+pulse.Row = Backbone.Model.extend({
+    defaults: function() {
+        return {"items":[]};
+    },
+    
+    addItem: function(item) {
+        this.get("items").push(item);
+    }
+});
 
 pulse.RowCollection = Backbone.Collection.extend({
     "model":pulse.Row

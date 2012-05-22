@@ -104,19 +104,19 @@ client.ConnectionManager.prototype = {
                     
                     switch(item.type) {
                         case "chat":
-                            row.push(new model.Chat(item));
+                            row.addItem(new model.Chat(item));
                             break;
                         case "sign":
-                            row.push(new model.Sign(item));
+                            row.addItem(new pulse.Sign(item));
                             break;
                         case "word":
-                            row.push(new model.Word(item));
+                            row.addItem(new model.Word(item));
                             break;
                     }
                     
                 }
                 
-                this.rows.push(row);
+                this.rows.add(row);
                 
                 break;
                 
