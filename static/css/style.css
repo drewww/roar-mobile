@@ -90,6 +90,7 @@ div#events-list .sign-event .profile {
 
 div#events-list .sign-event .sign-img {
   width: 80%;
+  border: 1px solid #888;
 }
 
 div#events-list .chat-event {
