@@ -126,9 +126,24 @@ views.ChatView = Backbone.View.extend({
   className: 'chat-event',
   
   template:  _.template("<img class='profile' src='<%=avatarUrl%>' /><p class='text'><%=message%></p><br class='clear'>"),
+  adminTemplate: _.template("<p class='text'><%=message%></p>"),
   
   render: function() {
-    this.$el.html(this.template(this.model.toJSON()));
+    
+    var templateToUse = this.template;
+    if(this.model.get("admin")) {
+        templateToUse = this.adminTemplate;
+        
+    }
+    
+    this.$el.html(templateToUse(this.model.toJSON()));
+    
+    if(this.model.get("admin")) {
+        this.$el.attr("class", "chat-event admin");
+    } else {
+        this.$el.attr("class", "chat-event");
+    }
+    
     return this;
   }
 });

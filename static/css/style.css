@@ -80,6 +80,11 @@ div#events-list .chat-event {
 /*  border: 1px solid #666;*/
 }
 
+div#events-list .admin {
+    background-color: #aaa;
+    font-style: italic;
+}
+
 .clear {
     clear: both;
 }

@@ -32,6 +32,7 @@ model.Chat = model.SectionEvent.extend({
         defaults["message"] = "default chat message";
         
         defaults["votes"] = 0;
+        defaults["admin"] = false;
         
         return defaults;
     },

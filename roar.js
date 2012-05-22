@@ -115,7 +115,8 @@ io.sockets.on('connection', function(socket) {
                 logger.info(userName + " leaving " + currentRoom);
                 
                 roomPopulations[currentRoom] = roomPopulations[currentRoom]-1;
-                io.sockets.in("room:" + data["room"]).emit("population", roomPopulations[data["room"]]);
+                io.sockets.in("room:" + currentRoom).emit("population", roomPopulations[data["room"]]);
+                io.sockets.in("room:" + currentRoom).emit("chat", {"admin":true, "message":userName + " has left the section."});
             }
             
             // join the socket to the room.
@@ -134,6 +135,9 @@ io.sockets.on('connection', function(socket) {
                 roomPopulations[data["room"]] = roomPopulations[data["room"]]+1;
                 io.sockets.in("room:" + data["room"]).emit("population", {"population":roomPopulations[data["room"]]});
             }
+            
+            io.sockets.in("room:" + data["room"]).emit("chat", {"admin":true, "message":userName + " has joined the section."});
+            
             
             });
         });
