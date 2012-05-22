@@ -303,7 +303,7 @@ views.SignCreateView = Backbone.View.extend({
     $('#main').animate({
       'opacity': '1.0'
     },1000);
-    conn.socket.emit('sign', this.$('#sign-canvas')[0].toDataURL('image/png'));
+    conn.socket.emit('sign-create', this.$('#sign-canvas')[0].toDataURL('image/png'));
   },  
   
   initialize: function() {
