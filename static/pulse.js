@@ -21,10 +21,25 @@ pulse.PulseView = Backbone.View.extend({
                 newView = new pulse.TrendingChatView({"model":item}).render().el;
             }
             
-            this.$("#pulse-container").isotope( 'insert', $(newView));
+
+            if(!this.checkForInvisibleItems()) {
+                this.$("#pulse-container").isotope( 'insert', $(newView));                
+            }
             this.$("#pulse-container").isotope( 'reLayout');
             
         }, this);
+    },
+    
+    checkForInvisibleItems: function() {
+        $.each($(".pulse-item"), function(key, value) {
+            var rect = value.getBoundingClientRect();
+            // console.log(rect);
+            if(rect.top < -50) {
+                console.log("FOUND ITEM");
+                $("#pulse-container").isotope('remove', $(".pulse-item"));
+                return true;
+            }
+        });
     },
     
     render: function() {
@@ -32,7 +47,8 @@ pulse.PulseView = Backbone.View.extend({
         this.$("#pulse-container").isotope({itemSelector:".pulse-item",
         masonry: {
           columnWidth: 64
-        }
+        },
+        animationEngine: "none",
         });
         
         return this;

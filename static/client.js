@@ -90,6 +90,7 @@ client.ConnectionManager.prototype = {
             case "join-ok":
                 console.log("JOIN OKAY! " + data["room"]);
                 this.sectionName = data["room"];
+                this.sectionEvent.reset();
                 break;
             
             case "pulse":
