@@ -11,7 +11,7 @@
   <!-- Mobile viewport optimization h5bp.com/ad -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width">
+  <meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" name="viewport">
 
   <!-- Home screen icon  Mathias Bynens mathiasbynens.be/notes/touch-icons -->
   <!-- For iPhone 4 with high-resolution Retina display: -->
@@ -57,11 +57,11 @@
 		    conn.identify('Mark');
 		    conn.join('MIT');
 		  }, 100);
-
+		  
       main_view = new views.MainView(conn);
-      $("body").append(main_view.render().el);      
+      $("body").append(main_view.render().el); 
       
-      // window.kendoMobileApplication = new kendo.mobile.Application(document.body);
+      window.kendoMobileApplication = new kendo.mobile.Application(document.body);  // Initialize Kendo ListView
     };
   </script>
 
