@@ -53,10 +53,7 @@
       conn = new client.ConnectionManager({"force-new-connect":false});
 		  conn.connect("<%= host %>", <%=port%>);
 		  
-      // main_view = new views.MainView(conn);
-      //       $("body").append(main_view.render().el); 
-      
-      load_view = new views.LoadView();
+      load_view = new views.LoadView(conn);
       $("body").append(load_view.render().el);
       
       // Used to prevent scrolling while drawing
@@ -64,7 +61,6 @@
         event.preventDefault();
       }, false); 
       
-      // window.kendoMobileApplication = new kendo.mobile.Application(document.body);  // Initialize Kendo ListView
     };
   </script>
 
