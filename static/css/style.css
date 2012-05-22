@@ -66,6 +66,32 @@ div#events-list {
   height: auto;
 }
 
+div#events-list .sign-event {
+  display: none;
+  
+  margin-top: -5px;
+  margin-bottom: -15px;  
+  
+/*  height: 34px;*/
+  width: 100%;
+/*  border: 1px solid #666;*/
+}
+
+div#events-list .sign-event .profile {
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  margin-left: 5px;
+  
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+div#events-list .sign-event .sign-img {
+  width: 80%;
+}
+
 div#events-list .chat-event {
   display: none;
   

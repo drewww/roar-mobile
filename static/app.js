@@ -59,7 +59,8 @@ views.SectionView = Backbone.View.extend({
                 this.$('#events-list').append(newChat.render().el);
                 break;
             case "sign":
-                console.log("unsupported section events!");
+                var newSign = new views.SignView({model:m});
+                this.$('#events-list').append(newSign.render().el);
                 break;
             case "poll":
                 var newPoll = new views.PollView({model:m});
@@ -69,6 +70,7 @@ views.SectionView = Backbone.View.extend({
         
      // var new_chat = (m.get("")) ? new views.ChatView({model:m}) : new views.PollView({model:m});
      this.$('.chat-event:last').fadeIn('fast');
+     this.$('.sign-event:last').fadeIn('fast');
      this.$('#events-list').scrollTop(Math.pow(2,30));
     }, this);
     views.conn.sectionItems.on('reset', function(m, c) {
@@ -315,6 +317,18 @@ views.SignCreateView = Backbone.View.extend({
     this.$el.html(this.template());
     return this;
   }
+});
+
+views.SignView = Backbone.View.extend({
+  className: 'sign-event',
+  
+  template: _.template("<img class='profile' src='<%=avatarUrl%>' /><img class='sign-img' src='<%=url%>' /><br class='clear' />"),
+  
+  render: function() {
+    this.$el.html(this.template(this.model.toJSON()));
+    return this;
+  }
+  
 });
 
 views.MainView = Backbone.View.extend({
