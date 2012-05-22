@@ -191,6 +191,8 @@ io.sockets.on('connection', function(socket) {
         "options":["red", "blue"]});
         
         io.sockets.emit("section", newPoll);
+        
+        startAutoPollVotes(newPoll.id);
     });
     
     socket.on("poll-vote", function(data) {
@@ -220,6 +222,36 @@ io.sockets.on('connection', function(socket) {
       fs.writeFile(name, new Buffer(b64.match(/,(.+)/)[1], 'base64'));
     });
 });
+
+// every second for 10 seconds push a bunch of global votes down.
+
+var pollCounter = 0;
+function startAutoPollVotes(id) {
+    
+    if(pollCounter > 10) {
+        return;
+    }
+    
+    pollCounter++;
+    setTimeout(startAutoPollVotes, 1000, id);
+    
+    // randomly add votes on either side of the issue.
+    var poll = server_model.items[id];
+
+    var votes = [Math.floor(Math.random()*100), Math.floor(Math.random()*100)];
+    
+    poll.addGlobalVote(0, votes[0]);
+    poll.addGlobalVote(1, votes[1]);
+
+    io.sockets.emit("poll-vote", {type:"global",
+        "pollId":id, "num":votes[0],
+        "index":0});
+        
+    io.sockets.emit("poll-vote", {type:"global",
+        "pollId":id, "num":votes[1],
+        "index":1});
+}
+
 
 // periodically publish pulse data.
 
