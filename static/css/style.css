@@ -93,7 +93,7 @@ div#section form input::-webkit-input-placeholder {
   color: #666;
 }
 
-div#stream {
+div#pulse {
   background-color: rgba(203,242,188,0.5);
   position: absolute;
   right: 0px;

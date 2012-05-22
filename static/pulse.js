@@ -28,19 +28,18 @@ pulse.RowView = Backbone.View.extend({
     render: function() {
         
         // loop through the different models
+        this.$el.html(this.template());
         
         _.each(this.model.get("items"), function(item) {
-            
             if(item instanceof pulse.Sign) {
-                this.$el.append(new pulse.SignView(item).el);
+                this.$el.append(new pulse.SignView({"model":item}).render().el);
             } else if(item instanceof pulse.Word) {
-                this.$el.append(new pulse.TrendingWordView(item).el);
+                this.$el.append(new pulse.TrendingWordView({"model":item}).render().el);
             } else if(item instanceof model.Chat) {
-                this.$el.append(new pulse.TrendingChatView(item).el);
+                this.$el.append(new pulse.TrendingChatView({"model":item}).render().el);
             }
         }, this);
         
-        this.$el.html(this.template());
         return this;
     }
 });
@@ -51,7 +50,7 @@ pulse.SignView = Backbone.View.extend({
    template: _.template("<img src='<%=url%>'>"),
    
    render: function() {
-       this.$el.html(this.template());
+       this.$el.html(this.template(this.model.toJSON()));
        return this;
    }
 });
@@ -62,7 +61,7 @@ pulse.TrendingWordView = Backbone.View.extend({
    template: _.template("<%=word%>"),
    
    render: function() {
-       this.$el.html(this.template());
+       this.$el.html(this.template(this.model.toJSON()));
        return this;
    }
 });
@@ -73,7 +72,7 @@ pulse.TrendingChatView = Backbone.View.extend({
     template: _.template("<img src='<%=avatarUrl%>'><div class='message'><%=message%></div>"),
 
     render: function() {
-        this.$el.html(this.template());
+        this.$el.html(this.template(this.model.toJSON()));
         return this;
     }
 });
