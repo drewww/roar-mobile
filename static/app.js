@@ -187,7 +187,7 @@ views.PollView = Backbone.View.extend({
   <div class='global-results results-container'><div class='opt2'>0</div><div class='opt1 bar'>0</div></div>\
   <br class='clear'>\
   </div>\
-  <div id='vote-right' class='vote-button btn btn-blue' voteIndex='1'><%=options[1]%></div>\
+  <div class='vote-right vote-button btn btn-blue' voteIndex='1'><%=options[1]%></div>\
   </div>\
   "),
   
