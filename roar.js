@@ -136,7 +136,7 @@ io.sockets.on('connection', function(socket) {
             
             logger.info("pops: " + JSON.stringify(roomPopulations));
             
-            io.sockets.in("room:" + data["room"]).emit("chat", {"type":"chat", "admin":true, "message":"<b>"+userName + "</b> has joined the section."});
+            io.sockets.in("room:" + data["room"]).emit("section", {"type":"chat", "admin":true, "message":"<b>"+userName + "</b> has joined the section."});
             
             });
         });
