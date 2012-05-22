@@ -80,8 +80,6 @@ var nameImages = {
     "Mark":"/static/img/users/mark.jpeg",
 }
 
-var profilePrefix = "/static/img/users/drew.jpeg";
-
 
 function getProfileURLForName(name) {
     if(name in nameImages) {
@@ -109,7 +107,7 @@ function getRandomProfileURL() {
     "48801_930412_163473879_q.jpg",
     "572367_518786953_429537474_q.jpg"];
 
-    return profilePrefix + randomProfileImages[Math.floor(Math.random(randomProfileImages.length))];
+    return "/static/img/users/" + randomProfileImages[Math.floor(Math.random(randomProfileImages.length))];
 }
 
 
