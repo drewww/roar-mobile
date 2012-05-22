@@ -37,13 +37,12 @@ div#section-select .friends {
   margin-left: 10px;
 }
 
-div#section-select .km-content {
+div#section-select .km-content {  /* Kendo UI hack to remove listview background */
   background: none;
 }
 
 div#section-select input#search {
-  width: 100%;
-  padding: 0px;
+  width: 90%;
   font-size: 20px;  
 }
 

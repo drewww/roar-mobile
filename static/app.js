@@ -9,13 +9,13 @@ views.SectionView = Backbone.View.extend({
         <li> \
           Search \
           <ul> \
-            <li data-icon='search'><input type='text'></li> \
+            <li data-icon='search'><input id='search' type='text'></li> \
           </ul> \
         </li> \
         <li> \
           Friends \
           <ul> \
-            <li data-icon='contacts'><a>MIT <span class='friends'>Drew, Bob, Alec</span></a></li> \
+            <li data-icon='contacts'><a>MIT <img class='friends' src='/static/img/users/drew.jpeg' /><img class='friends' src='/static/img/users/mark.jpeg'></a></li> \
             <li data-icon='contacts'><a>Reddit</a></li> \
             <li data-icon='contacts'><a>4chan</a></li> \
           </ul> \
@@ -96,7 +96,7 @@ views.MainView = Backbone.View.extend({
     this.$el.html(this.template());
     this.$el.append(this.section.render().el);
     this.$el.append(this.pulse.render().el)
-    
+        
     return this;
   }
 });
