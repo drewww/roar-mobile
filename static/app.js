@@ -58,8 +58,11 @@ views.SectionView = Backbone.View.extend({
                 this.$('#events-list').append(newChat.render().el);
                 break;
             case "sign":
-            case "poll":
                 console.log("unsupported section events!");
+                break;
+            case "poll":
+                var newPoll = new views.PollView({model:m});
+                this.$('#events-list').append(newPoll.render().el);
                 break;
         }
         
@@ -163,10 +166,22 @@ views.ChatView = Backbone.View.extend({
 views.PollView = Backbone.View.extend({
   className: 'poll-event',
   
-  template: _.template(""),
+  template: _.template("<div class='vote'>\
+  <div class='prompt'><%=message%></div>\
+  <div class='vote-button btn btn-red vote-left' voteIndex='0'><%=options[0]%></div>\
+  <div class='results'>\
+  <div class='section-results results-container'><div class='opt2'>0</div><div class='opt1 bar'>0</div></div>\
+  <div class='global-results results-container'><div class='opt2'>0</div><div class='opt1 bar'>0</div></div>\
+  <br class='clear'>\
+  </div>\
+  <div id='vote-right' class='vote-button btn btn-blue' voteIndex='1'><%=options[1]%></div>\
+  </div>\
+  "),
   
   render: function() {
-    this.$el.html(this.template(this.model));
+    this.$el.html(this.template(this.model.toJSON()));
+    
+    return this;
   }
 });
 

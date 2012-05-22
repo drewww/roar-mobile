@@ -182,6 +182,15 @@ io.sockets.on('connection', function(socket) {
             });
         });
     });
+    
+    socket.on("start-poll", function() {
+        
+        logger.info("STARTING POLL");
+        
+        io.sockets.emit("section", {"type":"poll", "message":"this is a poll about which color is the best",
+        "options":["red", "blue"]});
+        
+    });
 });
 
 // periodically publish pulse data.

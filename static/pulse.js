@@ -181,12 +181,12 @@ pulse.TrendingWordView = Backbone.View.extend({
 
 pulse.TrendingChatView = Backbone.View.extend({
     className: "chat pulse-item",
-
+    
     template: _.template("<img src='<%=avatarUrl%>'><div class='message'>\
     <div class='openquote'>&ldquo;</div>\
     <div class='contents'><%=message%></div>\
     <div class='closequote'>&rdquo;</div><div class='votes'><%=votes%></div></div>"),
-
+    
     initialize: function(args) {
         Backbone.View.prototype.initialize.call(this, args);
         
@@ -194,11 +194,11 @@ pulse.TrendingChatView = Backbone.View.extend({
             this.$(".votes").text(this.model.get("votes"));
         }, this);
     },
-
+    
     render: function() {
         this.$el.html(this.template(this.model.toJSON()));
         this.$el.attr("item-id", this.model.id);
-
+        
         return this;
     }
 });
@@ -236,18 +236,34 @@ pulse.Item = Backbone.Model.extend({
     defaults: function() {
         
         return {
-        type: "sign",   // accepts "sign", "chat", or "word"
+        type: "sign",   // accepts "sign", "chat", "word" or "poll"
         votes: 0,
         word: "none",
         url: "/static/img/users/default.png",
         name: "drewww",
         message: "the message",
         avatarUrl: "/static/img/users/default.png",
-        };
+        options: ["yes", "no"],
+        totalVotes: [0, 0],                 // this is just arbitrary and fake
+        sectionVoters: [[], []],    // this is going to be within a secion.
+        };                          // sort of fake because it'll be just
+                                    // one section.
     },
     
     addVote: function() {
         this.set({"votes":(this.get("votes")+1)});
+    },
+    
+    addSectionVote: function(index, url) {
+        var newSectionVotes = this.get("sectionVoters");
+        newSectionVotes[index].push(url);
+        this.set({"sectionVoters":newSectionVotes});
+    },
+    
+    addGlobalVote: function(index, num) {
+        var newTotalVotes = this.get("totalVotes");
+        newTotalVotes[index] = newTotalVotes[index] + num;
+        this.set({totalVotes:newTotalVotes});
     }
     
 });

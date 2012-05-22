@@ -57,9 +57,9 @@ client.ConnectionManager.prototype = {
         
         switch(type) {
             case "section":
-                var newChat = new pulse.Item(data);
-                this.sectionItems.add(newChat);
-                console.log("CHAT: " + JSON.stringify(newChat));
+                var newItem = new pulse.Item(data);
+                this.sectionItems.add(newItem);
+                console.log("ITEM: " + JSON.stringify(newItem));
                 break;
             case "chat-ok":
                 break;
