@@ -261,8 +261,8 @@ views.SignCreateView = Backbone.View.extend({
     $('#main').animate({
       'opacity': '1.0'
     },1000);
-    console.log(this.$('#sign-canvas')[0].toDataURL('image/png').length);
-  },
+    conn.socket.emit('sign', this.$('#sign-canvas')[0].toDataURL('image/png'));
+  },  
   
   render: function() {
     this.$el.html(this.template());
@@ -289,3 +289,13 @@ views.MainView = Backbone.View.extend({
     return this;
   },
 });
+
+views.LoadView = Backbone.View.extend({
+  id: 'load-view',
+  
+  template: _.template(""),
+  
+  render: function() {
+    
+  }
+})

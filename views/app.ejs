@@ -15,11 +15,11 @@
 
   <!-- Home screen icon  Mathias Bynens mathiasbynens.be/notes/touch-icons -->
   <!-- For iPhone 4 with high-resolution Retina display: -->
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/h/apple-touch-icon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/img/roar-icon-114.png">
   <!-- For first-generation iPad: -->
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/m/apple-touch-icon.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/img/roar-icon-72.png">
   <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-  <link rel="apple-touch-icon-precomposed" href="img/l/apple-touch-icon-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="/static/img/roar-icon.png">
   <!-- For nokia devices: -->
   <link rel="shortcut icon" href="img/l/apple-touch-icon.png">
 
@@ -53,15 +53,18 @@
       conn = new client.ConnectionManager({"force-new-connect":false});
 		  conn.connect("<%= host %>", <%=port%>);
 		  
-      main_view = new views.MainView(conn);
-      $("body").append(main_view.render().el); 
+      // main_view = new views.MainView(conn);
+      //       $("body").append(main_view.render().el); 
+      
+      load_view = new views.LoadView();
+      $("body").append(load_view.render().el);
       
       // Used to prevent scrolling while drawing
       document.body.addEventListener('touchmove', function(event) {
         event.preventDefault();
       }, false); 
       
-      window.kendoMobileApplication = new kendo.mobile.Application(document.body);  // Initialize Kendo ListView
+      // window.kendoMobileApplication = new kendo.mobile.Application(document.body);  // Initialize Kendo ListView
     };
   </script>
 
