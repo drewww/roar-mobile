@@ -4,19 +4,27 @@ views.SectionView = Backbone.View.extend({
   id: 'section',
   
   template: _.template("<div id='status'><h1></h1><h2>2 people</h2></div> \
-    <div id='section-select' data-role='view' data-title='Destinations'> \
+    <div id='section-select' data-role='view' data-title='Sections'> \
       <ul data-role='listview' data-style='inset' data-type='group'> \
         <li> \
-          Africa \
+          Search \
           <ul> \
-            <li data-icon='toprated'><a>Nairobi</a></li> \
+            <li data-icon='search'><input type='text'></li> \
           </ul> \
         </li> \
         <li> \
-          America \
+          Friends \
           <ul> \
-            <li data-icon='globe'><a>Boston</a></li> \
-            <li data-icon='globe'><a>Ottawa</a></li> \
+            <li data-icon='contacts'><a>MIT <span class='friends'>Drew, Bob, Alec</span></a></li> \
+            <li data-icon='contacts'><a>Reddit</a></li> \
+            <li data-icon='contacts'><a>4chan</a></li> \
+          </ul> \
+        </li> \
+        <li> \
+          Popular \
+          <ul> \
+            <li data-icon='toprated'><a>Boston</a></li> \
+            <li data-icon='toprated'><a>Ottawa</a></li> \
             <li data-icon='toprated'><a>San Francisco</a></li> \
           </ul> \
         </li> \

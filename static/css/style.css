@@ -28,8 +28,13 @@ div#status h2 {
 }
 
 div#section-select {
-  margin-top: 10px;
+  margin-top: 20px;
   height: 80%;
+}
+
+div#section-select .friends {
+  width: 32px;
+  margin-left: 10px;
 }
 
 div#section-select .km-content {
