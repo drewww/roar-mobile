@@ -70,7 +70,6 @@ div#events-list .sign-event {
   display: none;
   
   margin-top: -5px;
-  margin-bottom: -15px;  
   
 /*  height: 34px;*/
   width: 100%;
@@ -90,7 +89,10 @@ div#events-list .sign-event .profile {
 
 div#events-list .sign-event .sign-img {
   width: 80%;
+  padding: 5px;
   border: 1px solid #888;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 div#events-list .chat-event {
