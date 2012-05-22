@@ -46,6 +46,7 @@ div#section-select .population {
 }
 
 div#section-select .friends {
+  float: right;
   width: 32px;
   margin-left: 10px;
 }
@@ -90,6 +91,7 @@ div#events-list .sign-event .profile {
 div#events-list .sign-event .sign-img {
   width: 80%;
   padding: 5px;
+  background-color: white;
   border: 1px solid #888;
   border-radius: 5px;
   -webkit-border-radius: 5px;

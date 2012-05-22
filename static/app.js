@@ -19,17 +19,17 @@ views.SectionView = Backbone.View.extend({
         <li> \
           Friends \
           <ul> \
-            <li data-icon='contacts'><a class='section-link' data-name='MIT'><span class='population'>12</span> MIT <img class='friends' src='/static/img/users/drew.jpeg' /><img class='friends' src='/static/img/users/mark.jpeg' /></a></li> \
-            <li data-icon='contacts'><a class='section-link' data-name='Reddit'><span class='population'>15</span> Reddit <img class='friends' src='/static/img/users/drew.jpeg' /></a></li> \
-            <li data-icon='contacts'><a class='section-link' data-name='4chan'><span class='population'>23</span> 4chan <img class='friends' src='/static/img/users/mark.jpeg'></a></li> \
+            <li data-icon='contacts'><a class='section-link' data-name='MIT'><span class='population'>12</span> MIT <img class='friends' src='/static/img/users/371518_560795149_1523996772_q.jpg' /><img class='friends' src='/static/img/users/370963_509300458_621846615_q.jpg' /></a></li> \
+            <li data-icon='contacts'><a class='section-link' data-name='Somerville'><span class='population'>15</span> Somerville <img class='friends' src='/static/img/users/211341_214500083_8181198_q.jpg' /> <img class='friends' src='/static/img/users/157875_714307_743900256_q.jpg' /> <img class='friends' src='/static/img/users/161302_9102274_886654195_q.jpg' /></a></li> \
+            <li data-icon='contacts'><a class='section-link' data-name='Jen & Friends'><span class='population'>23</span> Jen & Friends <img class='friends' src='/static/img/users/274318_724123036_2055327919_q.jpg'></a></li> \
           </ul> \
         </li> \
         <li> \
           Popular \
           <ul> \
-            <li data-icon='toprated'><a class='section-link' data-name='Boston'><span class='population'>563</span> Boston</a></li> \
-            <li data-icon='toprated'><a class='section-link' data-name='MLB Playoffs'><span class='population'>342</span> MLB Playoffs</a></li> \
-            <li data-icon='toprated'><a class='section-link' data-name='Mad Men'><span class='population'>111</span> Mad Men</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='/r/baseball'><span class='population'>852</span> /r/baseball</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='Red Sox'><span class='population'>563</span> Red Sox</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='Yankees'><span class='population'>342</span> Yankees</a></li> \
           </ul> \
         </li> \
       </ul> \
