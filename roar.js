@@ -198,7 +198,7 @@ io.sockets.on('connection', function(socket) {
             // look up the item and broadcast a vote event for it.
             
             var poll = server_model.items[data["pollId"]];
-            var voterUrl = "/static/img/users/default.png";
+            var voterUrl = "/static/img/users/mark.jpeg";
             
             poll.addSectionVote(data["index"], voterUrl);
             poll.addGlobalVote(data["index"], 1);

@@ -167,6 +167,21 @@ div#pulse {
     margin-bottom: 31px;
 }
 
+.section-results img {
+    width: 25px;
+    height: 25px;
+    margin-right: 2px;
+}
+
+.section-results .opt2 img {
+    float: right;
+}
+
+.section-results .opt1 img {
+    float: left;
+}
+
+
 .vote-button {
     width: 53px;
     height: 65px;

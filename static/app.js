@@ -203,12 +203,28 @@ views.PollView = Backbone.View.extend({
           console.log("UPDATING!");
         var sectionVotes = this.model.get("sectionVoters");
         var globalVotes = this.model.get("totalVotes");
-        this.$(".section-results .opt2").text(sectionVotes[1].length);
-    	this.$(".section-results .opt1").text(sectionVotes[0].length).css("width", (sectionVotes[0].length/(sectionVotes[0].length+sectionVotes[1].length))*100 + "%");
-	
+        
+        console.log("sectionVotes: " + JSON.stringify(sectionVotes));
+        this.$(".section-results .opt2").html(this.generateVoterImgs(sectionVotes[1]));
+        this.$(".section-results .opt1").html(this.generateVoterImgs(sectionVotes[0]));
+        
+        this.$(".section-results .opt1").css("width", (sectionVotes[0].length/(sectionVotes[0].length+sectionVotes[1].length))*100 + "%");
+        
     	this.$(".global-results .opt2").text(globalVotes[1]);
     	this.$(".global-results .opt1").text(globalVotes[0]).css("width", (globalVotes[0]/(globalVotes[0]+globalVotes[1]))*100 + "%");
-      }, this);
+    	
+        }, this);
+  },
+  
+  generateVoterImgs: function(urlList) {
+      console.log("GENERATING FOR LIST : " + urlList);
+      var html = "";
+      
+      _.each(urlList, function(url) {
+          html += "<img src='" + url + "'>";
+      });
+      
+      return html;
   },
   
   vote: function() {
