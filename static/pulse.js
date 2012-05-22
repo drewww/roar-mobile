@@ -1,5 +1,18 @@
 
-pulse = {};
+(function () {
+  var server = false,
+    pulse;
+  if (typeof exports !== 'undefined') {
+    pulse = exports;
+    server = true;
+    
+    _ = require('underscore');
+    Backbone = require('backbone');
+    
+  } else {
+    pulse = this.pulse = {};
+  }
+
 
 pulse.PulseView = Backbone.View.extend({
     id: 'pulse',
@@ -128,26 +141,27 @@ pulse.Word= Backbone.Model.extend({
     }
 });
 
-pulse.Row = Backbone.Model.extend({
-    defaults: function() {
-        return {"items":[]};
-    },
-    
-    addItem: function(item) {
-        this.get("items").push(item);
-    }
-});
+// pulse.Row = Backbone.Model.extend({
+//     defaults: function() {
+//         return {"items":[]};
+//     },
+//     
+//     addItem: function(item) {
+//         this.get("items").push(item);
+//     }
+// });
 
 pulse.Item = Backbone.Model.extend({
     
     defaults: function() {
         
         return {
-        type: "sign",
+        type: "sign",   // accepts "sign", "chat", or "word"
         votes: 0,
         word: "none",
         url: "/static/img/users/default.png",
         name: "drewww",
+        message: "the message",
         avatarUrl: "/static/img/users/default.png",
         };
     }
@@ -156,3 +170,5 @@ pulse.Item = Backbone.Model.extend({
 pulse.PulseCollection = Backbone.Collection.extend({
     "model":pulse.Item
 });
+
+})()

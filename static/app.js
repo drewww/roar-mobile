@@ -29,7 +29,7 @@ views.SectionView = Backbone.View.extend({
           <ul> \
             <li data-icon='toprated'><a class='section-link' data-name='Boston'><span class='population'>563</span> Boston</a></li> \
             <li data-icon='toprated'><a class='section-link' data-name='MLB Playoffs'><span class='population'>342</span> MLB Playoffs</a></li> \
-            <li data-icon='toprated'><a class='section-link' data-name='Mad Men'><span class='population'>111</span> Chelsea vs. </a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='Mad Men'><span class='population'>111</span> Mad Men</a></li> \
           </ul> \
         </li> \
       </ul> \
@@ -49,13 +49,25 @@ views.SectionView = Backbone.View.extend({
     conn.on('message.join-ok', function() {
       this.$('h1').text(conn.sectionName);
     }, this);
-    views.conn.sectionEvents.on('add', function(m,c) {
-     var new_chat = (m instanceof model.Chat) ? new views.ChatView({model:m}) : new views.PollView({model:m});
-     this.$('#events-list').append(new_chat.render().el);
+    views.conn.sectionItems.on('add', function(m,c) {
+        
+        console.log("new sectionItem: " + JSON.stringify(m));
+        switch(m.get("type")) {
+            case "chat":
+                var newChat = new views.ChatView({model: new model.Chat(m.toJSON())});
+                this.$('#events-list').append(newChat.render().el);
+                break;
+            case "sign":
+            case "poll":
+                console.log("unsupported section events!");
+                break;
+        }
+        
+     // var new_chat = (m.get("")) ? new views.ChatView({model:m}) : new views.PollView({model:m});
      this.$('.chat-event:last').fadeIn('fast');
      this.$('#events-list').scrollTop(Math.pow(2,30));
     }, this);
-    views.conn.sectionEvents.on('reset', function(m, c) {
+    views.conn.sectionItems.on('reset', function(m, c) {
         this.$("#events-list").empty();
     }, this);
     
@@ -71,7 +83,7 @@ views.SectionView = Backbone.View.extend({
      var $elem2 = $(this.$('.population')[Math.floor(Math.random() * 6)]);
      $elem2.text(parseInt($elem2.text())-Math.floor(Math.random()*5));
      if (parseInt($elem2.text()) < 0) $elem2.text(5);
-    },2000);
+    },500);
   },
   
   createSection: function(event) {
