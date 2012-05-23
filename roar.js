@@ -41,7 +41,7 @@ if(program.args.length==1) {
     logger.info("Too many command line arguments.");
 }
 
-var port = 8080;
+var port = process.env.PORT || 8080;
 
 if(program.port) {
     logger.info("Setting port to " + program.port);
