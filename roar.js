@@ -334,7 +334,7 @@ function joinRoom(roomName, socket) {
 function generatePulse() {
     
     // auto cycle
-    setTimeout(generatePulse, 2000);
+    setTimeout(generatePulse, 8000);
 
     logger.info("PULSING");
     

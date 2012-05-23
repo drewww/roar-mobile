@@ -342,7 +342,7 @@ views.MainView = Backbone.View.extend({
     this.pulse = new pulse.PulseView({collection:views.conn.items});
   },
   
-  template: _.template(""),
+  template: _.template("<img id='roar-logo' src='/static/img/roar-wall-trans.png' width='100' />"),
   
   render: function() {
     this.$el.html(this.template());

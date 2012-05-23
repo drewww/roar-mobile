@@ -55,7 +55,7 @@ pulse.PulseView = Backbone.View.extend({
     startTouch: function(event) {
         event.currentTarget.timer = setTimeout(function() {
           conn.vote($(event.currentTarget).attr("item-id"));
-          $(event.currentTarget).removeClass('touched');
+          $(event.currentTarget).removeClass('touched');4
         },500);
         
         $(event.currentTarget).addClass('touched');

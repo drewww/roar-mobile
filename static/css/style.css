@@ -1,4 +1,10 @@
-/***** Section (Left Side) Styles *****/
+#roar-logo {
+  z-index: 1000;
+  opacity: 1.0;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
 
 div#section {
   position: absolute;
