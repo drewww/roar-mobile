@@ -1,6 +1,6 @@
 {
   "name": "ROAR",
-  "version": "0.1",
+  "version": "0.0.1",
   "dependencies": {
     "express": "2.5.9",
     "winston": "0.5.11",
