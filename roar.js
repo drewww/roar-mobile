@@ -327,15 +327,15 @@ function initializePulseItems() {
     "avatarUrl":getRandomProfileURL(), "name":"Mark",
     "timestamp":new Date().getTime(), "votes":18});
     
-    new server_model.ServerItem({"type":"sign", "url":"/static/img/users/mark.jpeg",
+    new server_model.ServerItem({"type":"sign", "url":"/static/img/signs/boo.png",
     "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":423});
 
-    new server_model.ServerItem({"type":"sign", "url":"/static/img/users/default.jpeg",
+    new server_model.ServerItem({"type":"sign", "url":"/static/img/signs/go_red_sox.png",
     "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":423});
 
-    new server_model.ServerItem({"type":"sign", "url":"/static/img/users/default.jpeg",
+    new server_model.ServerItem({"type":"sign", "url":"/static/img/signs/home_run.png",
     "avatarUrl":getRandomProfileURL(), "name":"drewwww",
     "timestamp":new Date().getTime(), "votes":423});
 
