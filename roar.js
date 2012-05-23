@@ -41,7 +41,7 @@ if(program.args.length==1) {
     logger.info("Too many command line arguments.");
 }
 
-var port = 8080;
+var port = process.env.PORT || 8080;
 
 if(program.port) {
     logger.info("Setting port to " + program.port);
@@ -50,7 +50,12 @@ if(program.port) {
 
 var app = express.createServer();
 var io = socket_lib.listen(app, {"log level":0});
-io.set("log level", 0);
+io.configure(function() {
+  io.set("log level", 0);
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10);
+});
+
 app.listen(port);
 app.use("/static", express.static(__dirname + '/static'));
 
