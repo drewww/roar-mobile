@@ -111,8 +111,9 @@ client.ConnectionManager.prototype = {
                 }
                 break;
             case "pulse":
-                
-                if (!pulseEnabled) return;
+            
+                console.log("this.pulseEnabled: " + this.pulseEnabled);
+                if (!this.pulseEnabled) break;
             
                 console.log("PULSE");
                 
