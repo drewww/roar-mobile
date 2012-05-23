@@ -66,7 +66,6 @@ app.get('/test', function(req, res) {
 });
 
 generatePulse();
-initializePulseItems();
 // setup the state management code
 
 // hash of sectionName -> ServerEventsCollection.
@@ -308,87 +307,8 @@ function startAutoPollVotes(id) {
 // periodically publish pulse data.
 
 
-function initializePulseItems() {
-    
-    // make a bunch of items.
-    new server_model.ServerItem({"type":"chat", "message":"This is a really sweet trending chat message",
-    "avatarUrl":getRandomProfileURL(), "name":"Mark",
-    "timestamp":new Date().getTime(), "votes":18});
 
-    new server_model.ServerItem({"type":"chat", "message":"YANKEES SUCK",
-    "avatarUrl":getRandomProfileURL(), "name":"Drew",
-    "timestamp":new Date().getTime(), "votes":18});
 
-    new server_model.ServerItem({"type":"chat", "message":"LETS GO RED SOX LETS GO",
-    "avatarUrl":getRandomProfileURL(), "name":"Drew",
-    "timestamp":new Date().getTime(), "votes":18});
-
-    new server_model.ServerItem({"type":"chat", "message":"If they don't make something happen this inning, they're never going to catch up.",
-    "avatarUrl":getRandomProfileURL(), "name":"Mark",
-    "timestamp":new Date().getTime(), "votes":18});
-    
-    new server_model.ServerItem({"type":"sign", "url":"/static/img/signs/boo.png",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":423});
-
-    new server_model.ServerItem({"type":"sign", "url":"/static/img/signs/go_red_sox.png",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":423});
-
-    new server_model.ServerItem({"type":"sign", "url":"/static/img/signs/home_run.png",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":423});
-
-    new server_model.ServerItem({"type":"word", "word":"jeter",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":38});
-    
-    new server_model.ServerItem({"type":"word", "word":"cano",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":38});
-    
-    new server_model.ServerItem({"type":"word", "word":"arod",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":38});
-    
-    new server_model.ServerItem({"type":"word", "word":"cc",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":38});
-    
-    new server_model.ServerItem({"type":"word", "word":"rivera",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":38});
-    
-    new server_model.ServerItem({"type":"word", "word":"beckett",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":38});
-    
-    new server_model.ServerItem({"type":"word", "word":"pedroia",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":38});
-
-    new server_model.ServerItem({"type":"word", "word":"sox",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":38});
-
-    new server_model.ServerItem({"type":"word", "word":"yankees",
-    "avatarUrl":getRandomProfileURL(), "name":"drewwww",
-    "timestamp":new Date().getTime(), "votes":38});
-
-    
-}
-
-// var baseItems = [
-// {"type":"chat", "message":"This is a really sweet trending chat message",
-// "avatarUrl":"/static/img/users/mark.jpeg", "name":"marfay",
-// "timestamp":new Date().getTime(), "votes":18},
-// {"type":"sign", "url":"/static/img/users/mark.jpeg",
-// "avatarUrl":"/static/img/users/mark.jpeg", "name":"drewwww",
-// "timestamp":new Date().getTime(), "votes":423},
-// {"type":"word", "word":"Jeter",
-// "avatarUrl":"/static/img/users/drew.jpeg", "name":"drewwww",
-// "timestamp":new Date().getTime(), "votes":38}];
-// 
 
 function leaveRoom(roomName, socket) {
     
@@ -445,16 +365,52 @@ function generatePulse() {
 }
 
 function chooseRandomPulseItem() {
+    var potentialItems = [
+    {"type":"chat", "message":"YANKEES SUCK",
+    "avatarUrl":getRandomProfileURL(), "name":"Drew"},
+    {"type":"chat", "message":"LETS GO RED SOX LETS GO",
+    "avatarUrl":getRandomProfileURL(), "name":"Drew"},
+    {"type":"chat", "message":"If they don't make something happen this inning, they're never going to catch up.",
+    "avatarUrl":getRandomProfileURL(), "name":"Mark"},
+    {"type":"sign", "url":"/static/img/signs/boo.png",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    {"type":"sign", "url":"/static/img/signs/go_red_sox.png",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    {"type":"sign", "url":"/static/img/signs/home_run.png",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    {"type":"word", "word":"jeter",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    {"type":"word", "word":"cano",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    {"type":"word", "word":"arod",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    {"type":"word", "word":"cc",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    {"type":"word", "word":"rivera",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    {"type":"word", "word":"beckett",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    {"type":"word", "word":"pedroia",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    {"type":"word", "word":"sox",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    {"type":"word", "word":"yankees",
+    "avatarUrl":getRandomProfileURL(), "name":"drewwww"},
+    ];
+    // var itemsWithVotes = _.filter(server_model.items, function(item) {
+    //     return item.get("votes")>0;
+    // });
     
-    var itemsWithVotes = _.filter(server_model.items, function(item) {
-        return item.get("votes")>0;
-    });
+    // logger.info("itemsWithVotes: " + itemsWithVotes.length);
     
-    logger.info("itemsWithVotes: " + itemsWithVotes.length);
+    var index = Math.floor(Math.random()*potentialItems.length);
     
-    var index = Math.floor(Math.random()*itemsWithVotes.length);
+    var dict = potentialItems[index];
     
-    return itemsWithVotes[index];
+    dict["timestamp"] = new Date().getTime();
+    dict["votes"] = Math.floor(Math.random()*100);
+    
+    return new server_model.ServerItem(dict);
 }
 
 function publishPoll() {
