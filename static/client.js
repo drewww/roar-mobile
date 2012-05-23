@@ -12,6 +12,7 @@ client.ConnectionManager.prototype = {
     sectionName: null,
     items: new pulse.PulseCollection(),
     population: 0,
+    pulseEnabled: true
     
     
     connect: function(host, port) {
@@ -110,6 +111,9 @@ client.ConnectionManager.prototype = {
                 }
                 break;
             case "pulse":
+                
+                if (!pulseEnabled) return;
+            
                 console.log("PULSE");
                 
                 // so the structure for a pulse message is:

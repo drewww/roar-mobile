@@ -141,6 +141,7 @@ views.SectionView = Backbone.View.extend({
       'opacity': '0.5'
     }, function() {
       $('body').prepend(signcreate_view.render().el);
+      views.conn.pulseEnabled = false;
     });
   },
   
@@ -302,6 +303,7 @@ views.SignCreateView = Backbone.View.extend({
   submit: function(event) {
     $('#sign-create').hide(function() {
       $(this).remove();
+      views.conn.pulseEnabled = true;
     });
     $('#main').animate({
       'opacity': '1.0'
