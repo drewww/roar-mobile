@@ -1,0 +1,50 @@
+add shadow/border to section header
+right align the "people"  indicator for sections
+
+pad names inserted after you hit login button
+
+add more trending messages + words
+fix the sizing on those so they use masonry a little more cleverly
+fix the close quotes based on the new comment sizes
+increase comment heights decrease width?
+randomize vote scores 
+
+allow voting on signs or chat in section view? shift them over to the pulse view?
+
+outline presentation
+	5 minutes
+	
+	introduce the problem
+	
+
+
+Hi everyone. My name is Drew Harry, and I'm here with Mark Fayngersh. We're both students at MIT - I'm finishing up my phd at the Media Lab this summer, and mark just finished up his freshman year. We've been working hard the past two days and we're thrilled to have the opportunity to show you guys what we've been working on. Social TV can be cliche, but we're really excited about our real-time vision. We hope you like it!
+
+<!-- It's cliche to say that Social TV is the next big revolution. Clearly increasing viewer engagement by creating compelling live experiences is a critical part of everyone's plans for the future. What we're going to show today is our vision for what a new breed of real-time social experiences might look like on a second screen platform. -->
+
+ROAR is focused on creating an online crowd for live sports events. We've modeled ROAR's design on what it's like to go to an actual event. When you go to a baseball game, you go with a group of friends. They're who you talk with, share observations with, make predictions about what will happen, and cheer with. But you're never cheering alone - being in a crowd is a visceral experience. With ROAR, we support both of these activities in one interface.
+
+Lets jump into a demo.
+
+When you boot the ROAR app on your tablet or mobile phone, it first figures out what you're watching by listening to the audio and passing it to an API like Civolution to match that audio to a specific live event.
+
+After that, ROAR knows what we're watching. Now we have to decide who we want to watch with. ROAR makes it easy to scan the crowd and figure out who you know who's watching. The audience is split into sections. Most sections are small - think a few friends sitting together. Sections with friends in them rise to the top. If none of your friends are watching the same game, you can join one of the popular rooms to watch with fans of the same team, or members of an online community.
+
+Okay, lets show you the different ways you can interact with your friends. First, you can chat with them. Think of it like a group text message session with friends that you know are watching at the same time as you.
+
+We also want to empower fans to share other kinds of content. Fans love to make clever signs, and that's a great fit with a tablet app so we built a way for fans to make and share signs in real time with their friends. 
+
+ROAR also opens up new ways for producers to interact in real time with audiences. When a producer pushes a poll, it shows up in your section and you can see in real-time what your friends think about the question, as well as what the whole crowd is thinking.
+
+Speaking of the crowd, the column on the right represents the pulse of the crowd. ROAR analyzes all of the chatting and sign sharing to pick out real-time trending topics. If you see something you like, you can press and hold it to vote for it. This helps ROAR know which content is interesting and spreads it to more people. 
+
+A producer could bring this content back to the stadium, too. Producers will have a dashboard that shows them top shared signs. They could grab one of those fan-generated signs and push it to the jumbotron. Imagine the rush you'd feel to have drawn something on your iPad on the couch and have it shared to hundreds of thousands of people watching the game. Even voting for something that eventually made it to the stadium would be exciting. ROAR creates these responsive feedback loops that will draw viewers in and make them want to be watching everything live so they can change the course of a television experience.
+
+
+You might be thinking that proposing a new social platform when we have Facebook and Twitter is audacious. But Facebook and Twitter have a participation problem when it comes to TV. According to Bluefin Labs, for most shows (even for sports events that have huge social media presence) the average tweeter tweets between one and two times per show. That's not a conversation; that's not real interaction. The problem is that every time you tweet, all of your followers see it, not just the ones who are watching the same game as you. That might be okay for the Superbowl or the Oscars, but it's pretty rare when all your followers are watching the same thing. Most of the time, the data shows, we moderate our sharing so as not to bug people. We'll tell people what we're watching, but it doesn't turn into a conversation. We need something like ROAR to create an intimate, fertile social experience between friends who know they share a context. Those are the spaces where real conversations blossom. And these conversations are going to keep people engaged, and watching longer.
+
+
+
+
+
+
