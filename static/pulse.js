@@ -55,13 +55,17 @@ pulse.PulseView = Backbone.View.extend({
     startTouch: function(event) {
         event.currentTarget.timer = setTimeout(function() {
           conn.vote($(event.currentTarget).attr("item-id"));
-        },1000);
+          $(event.currentTarget).removeClass('touched');
+        },500);
+        
+        $(event.currentTarget).addClass('touched');
         
         return false;
     },
 
     endTouch: function(event) {
       clearTimeout(event.currentTarget.timer);
+      $(event.currentTarget).removeClass('touched');
       
       return false;
     },

@@ -27,11 +27,11 @@
     border: 1px solid #666;
     
     height: 130px;
-    width: 208px;
+    width: 150px;
 }
 #pulse .sign img {
     height: 130px;
-    width: 208px;
+    width: 150px;
     background-color: black;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .contents {
-    width: 200px;
+    width: 165px;
     margin-left: 18px;
 }
 
@@ -86,7 +86,7 @@
 
 #pulse .chat .message {
     width: 172px;
-    height: 70px;
+    height: 80px;
     background-color: white;
     float: left;
     padding: 3px;

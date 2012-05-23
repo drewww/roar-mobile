@@ -323,7 +323,7 @@ function initializePulseItems() {
     "avatarUrl":getRandomProfileURL(), "name":"Drew",
     "timestamp":new Date().getTime(), "votes":18});
 
-    new server_model.ServerItem({"type":"chat", "message":"If they don't make something happen this inning, they're never going to catch up. Seriously critical moment.",
+    new server_model.ServerItem({"type":"chat", "message":"If they don't make something happen this inning, they're never going to catch up.",
     "avatarUrl":getRandomProfileURL(), "name":"Mark",
     "timestamp":new Date().getTime(), "votes":18});
     
