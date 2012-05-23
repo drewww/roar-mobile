@@ -12,7 +12,7 @@ client.ConnectionManager.prototype = {
     sectionName: null,
     items: new pulse.PulseCollection(),
     population: 0,
-    pulseEnabled: true
+    pulseEnabled: true,
     
     
     connect: function(host, port) {
