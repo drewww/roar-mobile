@@ -223,8 +223,8 @@ io.sockets.on('connection', function(socket) {
         
         logger.info("STARTING POLL");
         
-        var newPoll = new server_model.ServerItem({"type":"poll", "message":"this is a poll about which color is the best",
-        "options":["red", "blue"]});
+        var newPoll = new server_model.ServerItem({"type":"poll", "message":"Will the Red Sox manage to score this inning?",
+        "options":["Yes!", "No!"]});
         
         io.sockets.emit("section", newPoll);
         
@@ -236,7 +236,7 @@ io.sockets.on('connection', function(socket) {
             // look up the item and broadcast a vote event for it.
             
             var poll = server_model.items[data["pollId"]];
-            var voterUrl = "/static/img/users/mark.jpeg";
+            var voterUrl = getProfileURLForName(userName);
             
             poll.addSectionVote(data["index"], voterUrl);
             poll.addGlobalVote(data["index"], 1);
@@ -280,6 +280,7 @@ var pollCounter = 0;
 function startAutoPollVotes(id) {
     
     if(pollCounter > 10) {
+        pollCounter = 0;
         return;
     }
     
@@ -289,7 +290,7 @@ function startAutoPollVotes(id) {
     // randomly add votes on either side of the issue.
     var poll = server_model.items[id];
 
-    var votes = [Math.floor(Math.random()*100), Math.floor(Math.random()*100)];
+    var votes = [Math.floor(Math.random()*1000), Math.floor(Math.random()*1000)];
     
     poll.addGlobalVote(0, votes[0]);
     poll.addGlobalVote(1, votes[1]);

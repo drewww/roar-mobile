@@ -228,7 +228,7 @@ div#pulse {
 
 
 .vote {
-    width: 567px;
+    width: 500px;
 /*    width: 100%;*/
     height: 95px;
     padding: 5px;
@@ -296,7 +296,7 @@ div#pulse {
 }
 
 .results {
-    width: 407px;
+    width: 340px;
     float: left;
     margin-left: 5px;
 }
@@ -429,8 +429,8 @@ div#load-view #loader-view {
   *zoom: 1;
   padding: 4px 10px 4px;
   margin-bottom: 0;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 28px;
+  line-height: 60px;
   color: #333333;
   text-align: center;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
