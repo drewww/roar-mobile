@@ -376,7 +376,7 @@ function chooseRandomPulseItem() {
     {"type":"chat", "message":"YOOOOOUUUUUK IS BACK!",
     "avatarUrl":getRandomProfileURL(), "name":"Mark"},
 
-    {"type":"chat", "message":"Man, what a pitching matchup between the @RedSox and @Yankees. 24 total strike outs. 12 by each team.",
+    {"type":"chat", "message":"What a pitching matchup. 24 total strike outs. 12 by each team.",
     "avatarUrl":getRandomProfileURL(), "name":"Mark"},
 
     {"type":"chat", "message":"Damn you boston. Every time you give me hope, you just take it right back.",
