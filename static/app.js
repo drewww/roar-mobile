@@ -27,9 +27,11 @@ views.SectionView = Backbone.View.extend({
         <li> \
           Popular \
           <ul> \
-            <li data-icon='toprated'><a class='section-link' data-name='Red Sox'><span class='population'>563</span> Red Sox</a></li> \
-            <li data-icon='toprated'><a class='section-link' data-name='Yankees'><span class='population'>342</span> Yankees</a></li> \
-            <li data-icon='toprated'><a class='section-link' data-name='/r/baseball'><span class='population'>133</span> /r/baseball</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='/r/baseball'><span class='population'>536</span> /r/baseball</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='Wellesley'><span class='population'>426</span> Wellesley</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='Rutgers'><span class='population'>257</span> Rutgers</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='Pace'><span class='population'>113</span> Pace</a></li> \
+            <li data-icon='toprated'><a class='section-link' data-name='Stanford'><span class='population'>99</span> Stanford</a></li> \
           </ul> \
         </li> \
       </ul> \
@@ -156,7 +158,7 @@ views.SectionView = Backbone.View.extend({
 views.ChatView = Backbone.View.extend({
   className: 'chat-event',
   
-  template:  _.template("<img class='profile' src='<%=avatarUrl%>' /><p class='text'><%=message%></p><br class='clear' />"),
+  template:  _.template("<img class='profile' src='<%=avatarUrl%>' /><p class='text'><%=message%></p><span class='timestamp'><%=(new Date(timestamp)).toLocaleTimeString().match(/(.+)\:/)[1]%></span><br class='clear' />"),
   adminTemplate: _.template("<p class='text'><%=message%></p>"),
   
   render: function() {
