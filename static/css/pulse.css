@@ -36,7 +36,7 @@
 }
 
 #pulse .chat {
-    width: 300px;
+    width: 250px;
 }
 
 .openquote, .closequote {
@@ -85,8 +85,8 @@
 
 
 #pulse .chat .message {
-    width: 222px;
-    height: 59px;
+    width: 172px;
+    height: 70px;
     background-color: white;
     float: left;
     padding: 3px;

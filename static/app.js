@@ -78,7 +78,7 @@ views.SectionView = Backbone.View.extend({
     }, this);
     
     conn.on('message.population', function(arg) {
-        this.$("h2").text(arg["population"] + " people");
+      (parseInt(arg["population"]) == 1) ? this.$("h2").text(arg["population"] + " person") : this.$("h2").text(arg["population"] + " people");
     }, this);
     
     // Simulate real-time population changes
@@ -118,12 +118,12 @@ views.SectionView = Backbone.View.extend({
   },
   
   twLogin: function(event) {
-    this.$('#login').replaceWith($("<img src='/static/img/users/mark.jpeg' width='32' /><b>Mark Fayngersh</b>"));
+    this.$('#login').replaceWith($("<img style='margin-left:10px;' src='/static/img/users/mark.jpeg' width='32' /><b style='position:relative;top:3px;margin-left:5px;font-size:20px;'>Mark Fayngersh</b>"));
     conn.identify('Mark');
   },
   
   fbLogin: function(event) {
-    this.$('#login').replaceWith($("<img src='/static/img/users/drew.jpeg' width='32' /><b>Drew Harry</b>"));
+    this.$('#login').replaceWith($("<img style='margin-left:10px;' src='/static/img/users/drew.jpeg' width='32' /><b style='position:relative;top:3px;margin-left:5px;font-size:20px;'>Drew Harry</b>"));
     conn.identify('Drew')
   },
   
@@ -259,6 +259,7 @@ views.SignCreateView = Backbone.View.extend({
     <button id='clear-button' class='sign-button'>Clear</button> \
     <span id='colors'> \
       <button style='background-color:#000000;' data-color='#000000' class='color-button'>&nbsp;&nbsp;&nbsp;</button> \
+      <button style='background-color:#F2F2F2;' data-color='#F2F2F2' class='color-button'>&nbsp;&nbsp;&nbsp;</button> \
       <button style='background-color:#69D2E7;' data-color='#69D2E7' class='color-button'>&nbsp;&nbsp;&nbsp;</button> \
       <button style='background-color:#FA6900;' data-color='#FA6900' class='color-button'>&nbsp;&nbsp;&nbsp;</button> \
       <button style='background-color:#542437;' data-color='#542437' class='color-button'>&nbsp;&nbsp;&nbsp;</button> \

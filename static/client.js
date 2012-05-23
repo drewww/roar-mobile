@@ -36,8 +36,6 @@ client.ConnectionManager.prototype = {
         this.registerSocketListener("join-ok");
         this.registerSocketListener("leave-ok");
 
-        this.registerSocketListener("pulse");
-
         this.registerSocketListener("population");
         
         this.registerSocketListener("poll-vote");
@@ -94,6 +92,7 @@ client.ConnectionManager.prototype = {
             //     break;
             case "join-ok":
                 console.log("JOIN OKAY! " + data["room"]);
+                this.registerSocketListener("pulse");
                 this.sectionName = data["room"];
                 this.sectionItems.reset();
                 break;

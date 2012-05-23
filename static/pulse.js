@@ -53,39 +53,17 @@ pulse.PulseView = Backbone.View.extend({
     },
     
     startTouch: function(event) {
-        // move up the reference chain until we hit the pulse-item.
-        var target = $(event.target);
-        while(!target.hasClass("pulse-item")) {
-            target = target.parent();
-        }
-
-
-        $(target).addClass("touched");
-        console.log("start touch");
+        event.currentTarget.timer = setTimeout(function() {
+          conn.vote($(event.currentTarget).attr("item-id"));
+        },1000);
         
-        this.touchStartTime = new Date().getTime();
+        return false;
     },
 
     endTouch: function(event) {
-        if(this.touchStartTime==0) return;
-
-        // move up the reference chain until we hit the pulse-item.
-        var target = $(event.target);
-        while(!target.hasClass("pulse-item")) {
-            target = target.parent();
-        }
-        
-        
-        $(target).removeClass("touched");
-        console.log("end touch: ");
-        console.log(target);
-        
-        if(new Date().getTime() - this.touchStartTime > 1000) {
-            // vote on that baby.
-            conn.vote(target.attr("item-id"));
-        }
-        
-        this.touchStartTime=0;
+      clearTimeout(event.currentTarget.timer);
+      
+      return false;
     },
 
     
