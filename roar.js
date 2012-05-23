@@ -50,9 +50,12 @@ if(program.port) {
 
 var app = express.createServer();
 var io = socket_lib.listen(app, {"log level":0});
-io.set("log level", 0);
-io.set("transports", ["xhr-polling"]); 
-io.set("polling duration", 10);
+io.configure(function() {
+  io.set("log level", 0);
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10);
+});
+
 app.listen(port);
 app.use("/static", express.static(__dirname + '/static'));
 

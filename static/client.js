@@ -16,7 +16,7 @@ client.ConnectionManager.prototype = {
     
     
     connect: function(host, port) {
-        this.socket = io.connect("http://" + host + ":" + port, {'force new connection': true,
+        this.socket = io.connect(window.location.hostname, {'force new connection': true,
             rememberTransport: false, 
             'reconnect': true,
             'reconnection delay': 500,
