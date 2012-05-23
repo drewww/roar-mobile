@@ -1,1 +1,1 @@
-web: node roar.js
+web: node roar.js roar-mobile.herokuapp.com

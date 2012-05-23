@@ -32,7 +32,7 @@ program.version(0.1)
     .parse(process.argv);
     
     
-var host = "0.0.0.0";
+var host = "localhost";
 if(program.args.length==1) {
     host = program.args[0];
 } else if (program.args.length==0) {
